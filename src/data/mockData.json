@@ -1,0 +1,94 @@
+{
+  "brand": {
+    "portfolioBrandName": "IntelliDev",
+    "image": {
+      "assetUrl": "/assets/images/logo.png",
+      "altText": "IntelliDev Logo"
+    }
+  },
+  "hero": {
+    "name": "Benji Canones",
+    "role": "AI & Backend Engineer",
+    "tagline": "Architecting RAG systems and resilient backend pipelines.",
+    "selfPortrait": {
+      "assetUrl": "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=600&auto=format&fit=crop",
+      "altText": "Developer Portrait"
+    },
+    "links": [
+      { "platform": "GitHub", "url": "https://github.com/yourusername" },
+      { "platform": "LinkedIn", "url": "https://linkedin.com/in/yourusername" }
+    ]
+  },
+  "about": {
+    "shortDescription": "I build scalable backend systems and AI-integrated pipelines.",
+    "personalInformation": [
+      { "label": "Location", "value": "Malabon, PH" },
+      { "label": "Focus", "value": "Backend & AI Engineering" }
+    ],
+    "hobbies": ["System Design Research", "Mechanical Keyboards"],
+    "theWhy": "I build to abstract complexity into seamless user experiences."
+  },
+  "techStacks": [
+    { "name": "Python", "category": "Language" },
+    { "name": "PostgreSQL", "category": "Tool" },
+    { "name": "FastAPI", "category": "Language" },
+    { "name": "Docker", "category": "Deployment" },
+    { "name": "LangChain", "category": "AIAgent" }
+  ],
+  "projects": [
+    {
+      "id": "intellichat-core",
+      "title": "IntelliChat RAG Backend",
+      "shortDescription": "A developer-first backend for custom RAG systems.",
+      "thumbnail": {
+        "assetUrl": "/assets/images/intellichat-thumb.jpg",
+        "altText": "IntelliChat Dashboard"
+      }
+    }
+  ],
+  "contact": {
+    "email": "hello@yourdomain.com",
+    "otherLinks": [
+      { "platform": "X", "url": "https://x.com/yourusername" }
+    ]
+  },
+  "projectDetailsData": {
+    "intellichat-core": {
+      "id": "intellichat-core",
+      "title": "IntelliChat RAG Backend",
+      "description": "A highly scalable RAG engine.",
+      "deepDive": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
+      "repoLink": "https://github.com/yourusername/intellichat",
+      "liveSiteLink": "https://intellichat-demo.com",
+      "carousel": [
+        { "assetUrl": "/assets/images/demo1.jpg", "altText": "Demo 1" }
+      ],
+      "dailyBlogs": [
+        {
+          "id": "day-12",
+          "title": "Optimizing Vector Search Latency",
+          "datetime": "2026-04-05T10:00:00Z",
+          "description": "Switched from a standard HNSW index to a quantized vector search, reducing retrieval latency by 35%.",
+          "commitLink": "https://github.com/yourusername/intellichat/commit/abc1234",
+          "images": []
+        }
+      ],
+      "documentation": [
+        {
+          "type": "Diagram",
+          "url": "/assets/diagrams/rag-pipeline.png",
+          "description": "High-level flow from API gateway to Vector DB."
+        }
+      ],
+      "technologies": [
+        {
+          "name": "PostgreSQL with pgvector",
+          "whyDescription": "Chosen for ACID compliance alongside vector similarity search in a single datastore."
+        }
+      ],
+      "uiScreenshots": [
+        { "assetUrl": "/assets/images/ui-1.jpg", "altText": "Settings Panel" }
+      ]
+    }
+  }
+}
