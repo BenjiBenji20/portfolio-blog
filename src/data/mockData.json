@@ -77,14 +77,35 @@
     { "name": "Redis", "category": "Tool", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" },
     { "name": "Tailwind CSS", "category": "Others", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" }
   ],
-  "projects": [
+  "projectSummaries": [
     {
       "id": "intellichat-core",
       "title": "IntelliChat RAG Backend",
-      "shortDescription": "A developer-first backend for custom RAG systems.",
+      "shortDescription": "A developer-first backend for custom RAG systems capable of large scale vector ingestions seamlessly.",
+      "repositoryLink": "https://github.com/yourusername/intellichat-core",
       "thumbnail": {
-        "assetUrl": "/assets/images/intellichat-thumb.jpg",
-        "altText": "IntelliChat Dashboard"
+        "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
+        "altText": "Dashboard metrics interface"
+      }
+    },
+    {
+      "id": "neural-parser-api",
+      "title": "Neural Document Parser API",
+      "shortDescription": "High-throughput OCR and unstructured data extraction built on top of robust multimodal pipelines API endpoints.",
+      "repositoryLink": "https://github.com/yourusername/neural-parser",
+      "thumbnail": {
+        "assetUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop",
+        "altText": "Code editor snippet"
+      }
+    },
+    {
+      "id": "go-stream-engine",
+      "title": "Go Stream Engine",
+      "shortDescription": "Low-latency message streaming service crafted purely via WebSockets aiming for zero-dependency high concurrency usage.",
+      "repositoryLink": "https://github.com/yourusername/go-stream",
+      "thumbnail": {
+        "assetUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
+        "altText": "Circuit board pattern"
       }
     }
   ],

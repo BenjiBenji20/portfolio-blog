@@ -8,6 +8,8 @@ import { TechStackSection } from '../components/sections/TechStackSection';
 import { TechStackSkeleton } from '../components/sections/TechStackSkeleton';
 import { AboutSection } from '../components/sections/AboutSection';
 import { AboutSkeleton } from '../components/sections/AboutSkeleton';
+import { ProjectsSection } from '../components/sections/ProjectsSection';
+import { ProjectsSkeleton } from '../components/sections/ProjectsSkeleton';
 
 export function Home() {
   const { data, isLoading, error } = useData();
@@ -43,6 +45,7 @@ export function Home() {
             <HeroSkeleton />
             <TechStackSkeleton />
             <AboutSkeleton />
+            <ProjectsSkeleton />
           </div>
         ) : error ? (
           <section className="w-full max-w-7xl mx-auto px-6 py-24 text-center text-red-500">
@@ -62,9 +65,7 @@ export function Home() {
             <AboutSection about={data.about} />
 
             {/* Projects Section */}
-            <section id="projects" className="w-full min-h-screen bg-card flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-bold text-primary tracking-tight">Projects Section</h2>
-            </section>
+            <ProjectsSection summaries={data} />
 
             {/* Contact Section */}
             <section id="contact" className="w-full min-h-[70vh] bg-background flex flex-col items-center justify-center">

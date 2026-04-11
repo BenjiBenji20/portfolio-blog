@@ -51,7 +51,12 @@ export interface ProjectSummary {
   id: string; // Will map to Sanity's _id or slug
   title: string;
   shortDescription: string;
+  repositoryLink?: string;
   thumbnail?: SanityImage;
+}
+
+export interface ProjectSummaries {
+  projectSummaries: ProjectSummary[];
 }
 
 export interface ContactSection {
@@ -100,7 +105,7 @@ export interface PortfolioMockData {
   hero: HomeSection;
   about: AboutSection;
   techStacks: TechStackItem[];
-  projects: ProjectSummary[];
+  projectSummaries: ProjectSummary[];
   contact: ContactSection;
   projectDetailsData: Record<string, ProjectDetails>; // Keyed by project ID for easy lookup
 }
