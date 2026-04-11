@@ -50,12 +50,14 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
         </p>
 
         <div className="flex flex-row flex-wrap justify-center md:justify-start items-center gap-3 sm:gap-4 pt-4 w-full">
-          <Button size="lg" className="group whitespace-nowrap h-10 px-3 text-sm sm:h-12 sm:px-6 md:px-8 sm:text-base md:text-lg flex-1 sm:flex-none">
-            View Projects
-            <ArrowRight className="ml-1.5 sm:ml-2 w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+          <Button size="lg" className="group whitespace-nowrap h-10 text-sm sm:h-12 px-0 w-auto sm:text-base md:text-lg flex-1 sm:flex-none" asChild>
+            <a href="#projects" className="inline-flex items-center justify-center px-3 sm:px-6 md:px-8 w-full h-full">
+              View Projects
+              <ArrowRight className="ml-1.5 sm:ml-2 w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+            </a>
           </Button>
-          <Button size="lg" variant="outline" asChild className="whitespace-nowrap h-10 px-3 text-sm sm:h-12 sm:px-6 md:px-8 sm:text-base md:text-lg flex-1 sm:flex-none">
-            <a href={`mailto:${contact.email}`} className="inline-flex items-center justify-center">
+          <Button size="lg" variant="outline" asChild className="whitespace-nowrap h-10 text-sm sm:h-12 px-0 w-auto sm:text-base md:text-lg flex-1 sm:flex-none text-current border-current border-opacity-50">
+            <a href="#contact" className="inline-flex items-center justify-center px-3 sm:px-6 md:px-8 w-full h-full">
               <Mail className="mr-1.5 sm:mr-2 w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               Email Me
             </a>
@@ -69,7 +71,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
               key={link.platform}
               href={link.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
               aria-label={link.platform}
             >
@@ -81,7 +83,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
               key={link.platform}
               href={link.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
               aria-label={link.platform}
             >
@@ -98,7 +100,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
             src={hero.selfPortrait.assetUrl}
             alt={hero.selfPortrait.altText}
             className="absolute inset-0 w-full h-full object-cover rounded-none bg-card transition-transform duration-500 group-hover:-translate-y-2"
-            loading="lazy"
+            fetchPriority="high"
           />
         </div>
       </div>

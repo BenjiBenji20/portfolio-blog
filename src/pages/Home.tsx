@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useData } from '../hooks/useData';
+import { useSanityData } from '../hooks/useSanityData';
 import { HeroSection } from '../components/sections/HeroSection';
 import { HeroSkeleton } from '../components/sections/HeroSkeleton';
 import { NavigationHeader } from '../components/layout/NavigationHeader';
@@ -10,14 +10,13 @@ import { AboutSection } from '../components/sections/AboutSection';
 import { AboutSkeleton } from '../components/sections/AboutSkeleton';
 import { ProjectsSection } from '../components/sections/ProjectsSection';
 import { ProjectsSkeleton } from '../components/sections/ProjectsSkeleton';
+import { GlobalLoader } from '../components/layout/GlobalLoader';
 
 export function Home() {
-  const { data, isLoading, error } = useData();
+  const { data, isLoading, error } = useSanityData({ type: 'global' });
 
   useEffect(() => {
     if (data?.brand) {
-
-      // Update Favicon
       if (data.brand.image?.assetUrl) {
         let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
         if (!link) {
@@ -27,8 +26,6 @@ export function Home() {
         }
         link.href = data.brand.image.assetUrl;
       }
-      
-      // Update Title
       if (data.brand.portfolioBrandName) {
         document.title = data.brand.portfolioBrandName;
       }
@@ -37,6 +34,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-primary">
+      <GlobalLoader isLoading={isLoading} />
       <NavigationHeader brand={data?.brand} />
       
       <main className="flex-1 flex flex-col w-full">
@@ -53,19 +51,12 @@ export function Home() {
           </section>
         ) : data ? (
           <>
-            {/* Home Section */}
             <div id="home">
               <HeroSection hero={data.hero} contact={data.contact} />
             </div>
-
-            {/* Tech Stacks Section */}
             <TechStackSection items={data.techStacks} />
-
-            {/* About Section */}
             <AboutSection about={data.about} />
-
-            {/* Projects Section */}
-            <ProjectsSection summaries={data} />
+            <ProjectsSection />
 
             {/* Contact Section */}
             <section id="contact" className="w-full min-h-[70vh] bg-background flex flex-col items-center justify-center">

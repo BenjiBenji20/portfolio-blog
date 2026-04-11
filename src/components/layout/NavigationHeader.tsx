@@ -53,7 +53,7 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
               </a>
             ))}
             {/* Active state for Blogs as requested with border */}
-            <a href="/blogs" className="text-accent hover:text-accent-hover transition-colors font-semibold border border-accent/50 hover:border-accent rounded-full px-4 py-1.5 ml-2">Blogs</a>
+            <a href="/blogs" className="text-accent hover:text-white transition-colors font-semibold border border-accent hover:bg-accent rounded-full px-4 py-1.5 ml-2">Blogs</a>
           </div>
           <ThemeToggle />
           
@@ -70,7 +70,7 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-background px-6 py-6 flex flex-col gap-6 text-base font-medium shadow-lg z-50">
+        <div className="md:hidden absolute top-16 left-0 w-full bg-background px-6 py-6 flex flex-col gap-6 text-base font-medium shadow-lg z-50 border-t border-border/20">
             {navLinks.map((link) => (
               <a
                 key={link.id}
@@ -85,7 +85,7 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
                 {link.label}
               </a>
             ))}
-            <a href="/blogs" onClick={() => setIsOpen(false)} className="text-accent hover:text-accent-hover transition-colors font-semibold mt-2 border border-accent/50 hover:border-accent inline-block text-center rounded-full px-4 py-3">Blogs</a>
+            <a href="/blogs" onClick={() => setIsOpen(false)} className="text-accent hover:text-white transition-colors font-semibold mt-2 border border-accent hover:bg-accent inline-block text-center rounded-full px-4 py-3">Blogs</a>
         </div>
       )}
     </header>
