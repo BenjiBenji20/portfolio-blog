@@ -1,6 +1,6 @@
 import { ArrowRight, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaTwitter, FaLink } from 'react-icons/fa';
-import type { HomeSection, ContactSection } from '../../types';
+import type { HomeSection, ContactSection, SocialLink } from '../../types';
 import { Button } from '../common/Button';
 
 interface HeroSectionProps {
@@ -10,9 +10,18 @@ interface HeroSectionProps {
 
 export function HeroSection({ hero, contact }: HeroSectionProps) {
   
-  // Helper to resolve generic icon out of platform name
-  const getSocialIcon = (platform: string) => {
-    switch (platform.toLowerCase()) {
+  const getSocialIcon = (link: SocialLink) => {
+    if (link.iconUrl?.assetUrl) {
+      return (
+        <img
+          src={link.iconUrl.assetUrl}
+          alt={link.iconUrl.altText || `${link.platform} icon`}
+          className="w-5 h-5 object-contain"
+        />
+      );
+    }
+
+    switch (link.platform.toLowerCase()) {
       case 'github': return <FaGithub className="w-5 h-5" />;
       case 'linkedin': return <FaLinkedin className="w-5 h-5" />;
       case 'x': 
@@ -22,11 +31,11 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative w-full max-w-7xl min-h-[calc(100vh-4rem)] mx-auto px-6 lg:px-8 flex flex-col-reverse md:flex-row items-stretch justify-between gap-12 lg:gap-16">
+    <section className="relative w-full max-w-7xl min-h-[calc(100vh-4rem)] mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-stretch justify-center md:justify-between gap-6 md:gap-12 lg:gap-16">
 
-      <div className="flex-1 w-full md:w-[57%] flex flex-col justify-center items-center text-center md:items-start md:text-left space-y-6 z-10 py-12 md:py-0 mt-4 md:mt-0">
+      {/* 2. Changed py-12 to pt-12 pb-4 md:py-0 to remove the massive invisible bottom margin on mobile */}
+      <div className="flex-1 w-full md:w-[57%] flex flex-col justify-center items-center text-center md:items-start md:text-left space-y-6 z-10 pt-12 pb-4 md:py-0 mt-4 md:mt-0">
         
-        {/* Name, Role, Tagline Order */}
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1]">
             {hero.name}
@@ -36,7 +45,6 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Tagline */}
         <p className="max-w-2xl text-lg md:text-xl text-secondary leading-relaxed font-light">
           {hero.tagline}
         </p>
@@ -54,8 +62,8 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
           </Button>
         </div>
 
-        {/* Social Links */}
-        <div className="flex items-center justify-center md:justify-start gap-6 pt-8 text-tertiary">
+        {/* 3. Reduced top padding on social links slightly for mobile (pt-6 md:pt-8) */}
+        <div className="flex items-center justify-center md:justify-start gap-6 pt-6 md:pt-8 text-tertiary">
           {hero.links.map((link) => (
             <a
               key={link.platform}
@@ -65,7 +73,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
               className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
               aria-label={link.platform}
             >
-              {getSocialIcon(link.platform)}
+              {getSocialIcon(link)}
             </a>
           ))}
           {contact.otherLinks?.map((link) => (
@@ -77,7 +85,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
               className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
               aria-label={link.platform}
             >
-              {getSocialIcon(link.platform)}
+              {getSocialIcon(link)}
             </a>
           ))}
         </div>
@@ -85,10 +93,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
       
       <div className="w-full md:w-[43.8%] relative z-10 shrink-0 aspect-square md:aspect-auto">
         <div className="relative w-full h-full group">
-          {/* Decorative background glow */}
           <div className="absolute inset-0 bg-accent/20 blur-3xl scale-90 group-hover:bg-accent/30 transition-colors duration-700" />
-
-          {/* 4. Changed image to absolute inset-0 to guarantee it strictly fills its parent container height. Ensured rounded-none is present. */}
           <img
             src={hero.selfPortrait.assetUrl}
             alt={hero.selfPortrait.altText}

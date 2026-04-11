@@ -6,6 +6,7 @@ export interface SanityImage {
 
 export interface SocialLink {
   platform: string;
+  iconUrl?: SanityImage;
   url: string;
 }
 
@@ -32,7 +33,7 @@ export interface AboutSection {
 
 export interface TechStackItem {
   name: string;
-  category: 'Language' | 'Deployment' | 'Tool' | 'AIAgent';
+  category: 'Language' | 'Deployment' | 'Tool' | 'AIAgent' | 'Others';
   iconUrl?: string; // Optional icon for the bento grid
 }
 

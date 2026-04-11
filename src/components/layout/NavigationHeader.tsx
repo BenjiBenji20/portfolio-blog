@@ -12,14 +12,13 @@ interface NavigationHeaderProps {
 export function NavigationHeader({ brand }: NavigationHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const sectionIds = useMemo(() => ['home', 'about', 'projects', 'tech', 'contact'], []);
+  const sectionIds = useMemo(() => ['home', 'about', 'projects', 'contact'], []);
   const activeSection = useActiveSection(sectionIds, brand?.portfolioBrandName);
 
   const navLinks = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
-    { id: 'tech', label: 'Tech Stacks' },
     { id: 'contact', label: 'Contact' },
   ];
 
