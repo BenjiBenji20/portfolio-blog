@@ -33,8 +33,9 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
   return (
     <section className="relative w-full max-w-7xl min-h-[calc(100vh-4rem)] mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-stretch justify-center md:justify-between gap-6 md:gap-12 lg:gap-16">
 
-      {/* 2. Changed py-12 to pt-12 pb-4 md:py-0 to remove the massive invisible bottom margin on mobile */}
-      <div className="flex-1 w-full md:w-[57%] flex flex-col justify-center items-center text-center md:items-start md:text-left space-y-6 z-10 pt-12 pb-4 md:py-0 mt-4 md:mt-0">
+      {/* 1. Changed flex-1 to md:flex-1. 
+          2. Replaced pt-12 pb-4 mt-4 with py-6 md:py-0 to remove excessive artificial spacing */}
+      <div className="w-full md:w-[57%] md:flex-1 flex flex-col justify-center items-center text-center md:items-start md:text-left space-y-6 z-10 py-6 md:py-0">
         
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1]">
@@ -64,7 +65,6 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
           </Button>
         </div>
 
-        {/* 3. Reduced top padding on social links slightly for mobile (pt-6 md:pt-8) */}
         <div className="flex items-center justify-center md:justify-start gap-6 pt-6 md:pt-8 text-tertiary">
           {hero.links.map((link) => (
             <a
