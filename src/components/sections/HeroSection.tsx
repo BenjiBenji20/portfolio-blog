@@ -33,8 +33,6 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
   return (
     <section className="relative w-full max-w-7xl min-h-[calc(100vh-4rem)] mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-stretch justify-center md:justify-between gap-6 md:gap-12 lg:gap-16">
 
-      {/* 1. Changed flex-1 to md:flex-1. 
-          2. Replaced pt-12 pb-4 mt-4 with py-6 md:py-0 to remove excessive artificial spacing */}
       <div className="w-full md:w-[57%] md:flex-1 flex flex-col justify-center items-center text-center md:items-start md:text-left space-y-6 z-10 py-6 md:py-0">
         
         <div className="space-y-4">
@@ -78,7 +76,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
               {getSocialIcon(link)}
             </a>
           ))}
-          {contact.otherLinks?.map((link) => (
+          {contact.socials?.map((link) => (
             <a
               key={link.platform}
               href={link.url}

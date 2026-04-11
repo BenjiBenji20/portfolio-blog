@@ -110,10 +110,21 @@
     }
   ],
   "contact": {
-    "email": "hello@yourdomain.com",
-    "otherLinks": [
-      { "platform": "X", "url": "https://x.com/yourusername" }
-    ]
+      "email": "yourname.dev@gmail.com",
+      "availability": "Open for Junior Roles",
+      "location": "Malabon, Metro Manila",
+      "timezone": "GMT+8",
+      "formOptions": [
+        "Job Opportunity",
+        "Freelance/Contract",
+        "Technical Inquiry",
+        "Just saying hi!"
+      ],
+      "socials": [
+        { "platform": "GitHub", "url": "https://github.com", "username": "@yourgithub", "iconUrl": { "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", "altText": "Github" } },
+        { "platform": "LinkedIn", "url": "https://linkedin.com", "username": "Your Name", "iconUrl": { "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg", "altText": "LinkedIn" } },
+        { "platform": "X", "url": "https://twitter.com", "username": "@yourhandle", "iconUrl": { "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/twitter/twitter-original.svg", "altText": "Twitter" } }
+      ]
   },
   "projectDetailsData": {
     "intellichat-core": {

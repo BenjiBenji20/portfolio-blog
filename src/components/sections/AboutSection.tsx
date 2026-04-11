@@ -57,7 +57,7 @@ export function AboutSection({ about }: { about: AboutSectionType }) {
 
         {/* Expanded Content with Smooth Grid Transition */}
         {about.moreAboutMe && about.moreAboutMe.length > 0 && (
-          <div className={`w-full grid transition-all duration-500 ease-in-out ${isMoreAboutMeOpen ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0 mt-0 invisible'}`}>
+          <div className={`w-full grid transition-all duration-500 ease-in-out ${isMoreAboutMeOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 mt-0 invisible'}`}>
             <div className="overflow-hidden flex flex-col space-y-16">
               {about.moreAboutMe.map((section, idx) => (
                 <div key={idx} className="w-full flex flex-col lg:flex-row items-start gap-12 lg:gap-16 pt-8 mt-4">

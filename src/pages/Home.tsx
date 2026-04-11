@@ -10,6 +10,8 @@ import { AboutSection } from '../components/sections/AboutSection';
 import { AboutSkeleton } from '../components/sections/AboutSkeleton';
 import { ProjectsSection } from '../components/sections/ProjectsSection';
 import { ProjectsSkeleton } from '../components/sections/ProjectsSkeleton';
+import { ContactSection } from '../components/sections/ContactSection';
+import { ContactSkeleton } from '../components/sections/ContactSkeleton';
 import { GlobalLoader } from '../components/layout/GlobalLoader';
 
 export function Home() {
@@ -44,6 +46,7 @@ export function Home() {
             <TechStackSkeleton />
             <AboutSkeleton />
             <ProjectsSkeleton />
+            <ContactSkeleton />
           </div>
         ) : error ? (
           <section className="w-full max-w-7xl mx-auto px-6 py-24 text-center text-red-500">
@@ -57,11 +60,7 @@ export function Home() {
             <TechStackSection items={data.techStacks} />
             <AboutSection about={data.about} />
             <ProjectsSection />
-
-            {/* Contact Section */}
-            <section id="contact" className="w-full min-h-[70vh] bg-background flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-bold text-primary tracking-tight">Contact Section</h2>
-            </section>
+            <ContactSection contact={data.contact} />
           </>
         ) : null}
       </main>

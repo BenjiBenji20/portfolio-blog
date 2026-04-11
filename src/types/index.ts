@@ -6,6 +6,7 @@ export interface SanityImage {
 
 export interface SocialLink {
   platform: string;
+  username?: string;
   iconUrl?: SanityImage;
   url: string;
 }
@@ -61,7 +62,11 @@ export interface ProjectSummaries {
 
 export interface ContactSection {
   email: string;
-  otherLinks?: SocialLink[];
+  availability?: string;
+  location?: string;
+  timezone?: string;
+  formOptions?: string[];
+  socials?: SocialLink[];
 }
 
 // Blog / Project Detail Page Interfaces
