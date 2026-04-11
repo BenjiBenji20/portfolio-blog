@@ -24,11 +24,21 @@ export interface HomeSection {
   links: SocialLink[];
 }
 
+export interface MoreAboutMe {
+  headerTitle?: string; // e.g., "About Me", "My Process", "Hobbies"
+  description?: string;
+  items?: string[];     // For lists like hobbies or research interests
+  images?: SanityImage[];
+}
+
 export interface AboutSection {
-  shortDescription: string;
+  // Primary Info (The first part people see)
+  mainDescription: string;
   personalInformation: { label: string; value: string }[];
-  hobbies: string[];
-  theWhy: string;
+  images?: SanityImage[]; // Top-level images for the right column
+
+  // Secondary Info (The "More Items" part)
+  moreAboutMe: MoreAboutMe[]; 
 }
 
 export interface TechStackItem {

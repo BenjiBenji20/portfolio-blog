@@ -6,6 +6,8 @@ import { NavigationHeader } from '../components/layout/NavigationHeader';
 import { Footer } from '../components/layout/Footer';
 import { TechStackSection } from '../components/sections/TechStackSection';
 import { TechStackSkeleton } from '../components/sections/TechStackSkeleton';
+import { AboutSection } from '../components/sections/AboutSection';
+import { AboutSkeleton } from '../components/sections/AboutSkeleton';
 
 export function Home() {
   const { data, isLoading, error } = useData();
@@ -40,6 +42,7 @@ export function Home() {
           <div className="w-full flex flex-col">
             <HeroSkeleton />
             <TechStackSkeleton />
+            <AboutSkeleton />
           </div>
         ) : error ? (
           <section className="w-full max-w-7xl mx-auto px-6 py-24 text-center text-red-500">
@@ -55,11 +58,8 @@ export function Home() {
             {/* Tech Stacks Section */}
             <TechStackSection items={data.techStacks} />
 
-            {/* TODO: SEPARATE THE SECTIONS INTO DIFFERENT COMPONENTS */}
-            {/* About Section - bg-card is lighter (#18181b) than bg-background in dark mode */}
-            <section id="about" className="w-full min-h-screen bg-background flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-bold text-primary tracking-tight">About Section</h2>
-            </section>
+            {/* About Section */}
+            <AboutSection about={data.about} />
 
             {/* Projects Section */}
             <section id="projects" className="w-full min-h-screen bg-card flex flex-col items-center justify-center">

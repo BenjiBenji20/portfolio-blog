@@ -6,7 +6,7 @@ export function TechIcon({ item, className }: { item: TechStackItem; className?:
       {item.iconUrl ? (
         <img src={item.iconUrl} alt={`${item.name} icon`} className="w-12 h-12 object-contain drop-shadow-sm" />
       ) : (
-        <div className="w-12 h-12 flex items-center justify-center bg-card rounded-xl font-bold text-xl text-accent border border-border shadow-inner">
+        <div className="w-12 h-12 flex items-center justify-center bg-card rounded-xl font-bold text-xl text-accent shadow-sm">
           {item.name.substring(0, 2).toUpperCase()}
         </div>
       )}
