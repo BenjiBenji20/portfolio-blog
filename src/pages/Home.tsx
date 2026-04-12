@@ -55,7 +55,7 @@ export function Home() {
         ) : data ? (
           <>
             <div id="home">
-              <HeroSection hero={data.hero} contact={data.contact} />
+              <HeroSection hero={data.hero} />
             </div>
             <TechStackSection items={data.techStacks} />
             <AboutSection about={data.about} />

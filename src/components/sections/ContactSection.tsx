@@ -3,17 +3,9 @@ import type { ContactSection as ContactSectionType } from '../../types';
 import { Input } from '../common/Input';
 import { Textarea } from '../common/Textarea';
 import { toast } from 'sonner';
-import { Send, FileCheck, Loader2 } from 'lucide-react';
+import { Send, FileCheck, Loader2, Mail } from 'lucide-react';
 import { cn } from '../../utils/cn';
-import { FiGithub, FiLinkedin, FiTwitter, FiMail } from 'react-icons/fi';
-
-function getSocialIcon(platform: string) {
-  const p = platform.toLowerCase();
-  if (p.includes('github')) return <FiGithub className="w-5 h-5" />;
-  if (p.includes('linkedin')) return <FiLinkedin className="w-5 h-5" />;
-  if (p.includes('x') || p.includes('twitter')) return <FiTwitter className="w-5 h-5" />;
-  return <FiMail className="w-5 h-5" />;
-}
+import { SocialIcon } from '../common/SocialIcon';
 
 export function ContactSection({ contact }: { contact: ContactSectionType }) {
   const [status, setStatus] = useState<'IDLE' | 'SUBMITTING' | 'SUCCESS' | 'ERROR'>('IDLE');
@@ -72,7 +64,7 @@ export function ContactSection({ contact }: { contact: ContactSectionType }) {
                   className="flex items-center gap-4 text-secondary hover:text-accent transition-colors group"
                 >
                   <div className="p-3 rounded-lg bg-card border border-border/20 group-hover:border-accent/50 transition-colors shadow-sm">
-                    <FiMail className="w-5 h-5 text-accent md:text-primary group-hover:text-accent transition-colors" />
+                    <Mail className="w-5 h-5 text-accent md:text-primary group-hover:text-accent transition-colors" />
                   </div>
                   <span className="font-medium text-primary/80 group-hover:text-primary transition-colors">{contact.email}</span>
                 </a>
@@ -86,11 +78,11 @@ export function ContactSection({ contact }: { contact: ContactSectionType }) {
                     className="flex items-center gap-4 text-secondary hover:text-accent transition-colors group"
                   >
                     <div className="p-3 rounded-lg bg-card border border-border/20 group-hover:border-accent/50 transition-colors shadow-sm text-primary/80 group-hover:text-accent">
-                      {social.iconUrl?.assetUrl ? (
-                        <img src={social.iconUrl.assetUrl} alt={social.platform} className="w-5 h-5 object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
-                      ) : (
-                        getSocialIcon(social.platform)
-                      )}
+                      <SocialIcon 
+                        link={social} 
+                        className="w-5 h-5" 
+                        imgClassName="opacity-70 group-hover:opacity-100 transition-opacity"
+                      />
                     </div>
                     <span className="font-medium text-primary/80 group-hover:text-primary transition-colors">
                       {social.username || social.platform}

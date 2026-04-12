@@ -1,35 +1,13 @@
 import { ArrowRight, Mail } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter, FaLink } from 'react-icons/fa';
-import type { HomeSection, ContactSection, SocialLink } from '../../types';
+import { SocialIcon } from '../common/SocialIcon';
+import type { HomeSection } from '../../types';
 import { Button } from '../common/Button';
 
 interface HeroSectionProps {
   hero: HomeSection;
-  contact: ContactSection;
 }
 
-export function HeroSection({ hero, contact }: HeroSectionProps) {
-  
-  const getSocialIcon = (link: SocialLink) => {
-    if (link.iconUrl?.assetUrl) {
-      return (
-        <img
-          src={link.iconUrl.assetUrl}
-          alt={link.iconUrl.altText || `${link.platform} icon`}
-          className="w-5 h-5 object-contain"
-        />
-      );
-    }
-
-    switch (link.platform.toLowerCase()) {
-      case 'github': return <FaGithub className="w-5 h-5" />;
-      case 'linkedin': return <FaLinkedin className="w-5 h-5" />;
-      case 'x': 
-      case 'twitter': return <FaTwitter className="w-5 h-5" />;
-      default: return <FaLink className="w-5 h-5" />;
-    }
-  };
-
+export function HeroSection({ hero }: HeroSectionProps) {
   return (
     <section className="relative w-full max-w-7xl min-h-[calc(100vh-4rem)] mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-stretch justify-center md:justify-between gap-6 md:gap-12 lg:gap-16">
 
@@ -73,19 +51,7 @@ export function HeroSection({ hero, contact }: HeroSectionProps) {
               className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
               aria-label={link.platform}
             >
-              {getSocialIcon(link)}
-            </a>
-          ))}
-          {contact.socials?.map((link) => (
-            <a
-              key={link.platform}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
-              aria-label={link.platform}
-            >
-              {getSocialIcon(link)}
+              <SocialIcon link={link} />
             </a>
           ))}
         </div>
