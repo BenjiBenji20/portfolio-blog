@@ -1,10 +1,10 @@
-import type { SanityImage } from '../types';
+import type { SanityAsset } from '../types';
 
 /**
  * Scalable Asset Optimizer simulating @sanity/image-url
  * Wraps asset URLs to ensure dimensional boundary fetching & WebP execution.
  */
-export function urlFor(source: SanityImage) {
+export function urlFor(source: SanityAsset) {
   return {
     width: (w: number) => ({
       height: (h: number) => ({

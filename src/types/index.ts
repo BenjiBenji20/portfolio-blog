@@ -1,5 +1,7 @@
 // Shared Types
-export interface SanityImage {
+export interface SanityAsset {
+  type: 'image' | 'video';
+  description?: string; // display during lightbox
   assetUrl: string;
   altText: string;
 }
@@ -7,13 +9,13 @@ export interface SanityImage {
 export interface SocialLink {
   platform: string;
   username?: string;
-  iconUrl?: SanityImage;
+  iconUrl?: SanityAsset;
   url: string;
 }
 
 export interface PortfolioBrandIcon {
   portfolioBrandName?: string;
-  image?: SanityImage;
+  image?: SanityAsset;
 }
 
 // Landing Page Interfaces
@@ -21,7 +23,7 @@ export interface HomeSection {
   name: string;
   role: string;
   tagline: string;
-  selfPortrait: SanityImage;
+  selfPortrait: SanityAsset;
   links: SocialLink[];
 }
 
@@ -29,14 +31,14 @@ export interface MoreAboutMe {
   headerTitle?: string; // e.g., "About Me", "My Process", "Hobbies"
   description?: string;
   items?: string[];     // For lists like hobbies or research interests
-  images?: SanityImage[];
+  images?: SanityAsset[];
 }
 
 export interface AboutSection {
   // Primary Info (The first part people see)
   mainDescription: string;
   personalInformation: { label: string; value: string }[];
-  images?: SanityImage[]; // Top-level images for the right column
+  images?: SanityAsset[]; // Top-level images for the right column
 
   // Secondary Info (The "More Items" part)
   moreAboutMe: MoreAboutMe[]; 
@@ -54,7 +56,7 @@ export interface ProjectSummary {
   datetime: string; // ISO String
   shortDescription: string;
   repositoryLink?: string;
-  thumbnail?: SanityImage;
+  thumbnail?: SanityAsset;
 }
 
 export interface ContactSection {
@@ -67,38 +69,50 @@ export interface ContactSection {
 }
 
 // Blog / Project Detail Page Interfaces
-export interface DailyBlogEntry {
+export interface BlogPreview {
+  // uplift-states: HomeSection
+  profileDetails: HomeSection;
+  description: string; // markdown
+  carousel: SanityAsset[];
+}
+
+// isolate through project id
+export interface ProjectBlogEntry {
   id: string;
   title: string; // ### Title
   datetime: string; // ISO String
   description: string; // Markdown
   commitLink?: string;
-  images?: SanityImage[];
+  assets?: SanityAsset[]; // images or vids or both
 }
 
-export interface ProjectArchitecture {
+// isolate through project id
+export interface ProjectDocumentation {
   type: 'Video' | 'Diagram';
   url: string;
   description: string;
 }
 
+// isolate through project id
 export interface ProjectTechnology {
   name: string;
-  whyDescription?: string;
+  description?: string;
 }
 
-export interface ProjectDetails {
-  id: string;
-  title: string;
-  description: string;
-  deepDive: string; // Note: In Phase 2, Sanity Portable Text will change this to an array of objects
+// isolate through project id
+export interface ProjectDeepDive {
+  description: string; // markdown
   repoLink?: string;
   liveSiteLink?: string;
-  carousel: SanityImage[];
-  dailyBlogs: DailyBlogEntry[];
-  documentation: ProjectArchitecture[];
+}
+
+export interface ProjectBlog {
+  id: string;
+  deepDive: ProjectDeepDive;
+  projectBlogs: ProjectBlogEntry[];
+  documentation: ProjectDocumentation[];
   technologies: ProjectTechnology[];
-  uiScreenshots: SanityImage[];
+  uiScreenshots: SanityAsset[];
 }
 
 // Root Mock Data Interface
@@ -109,5 +123,6 @@ export interface PortfolioMockData {
   techStacks: TechStackItem[];
   projectSummaries: ProjectSummary[];
   contact: ContactSection;
-  projectDetailsData: Record<string, ProjectDetails>; // Keyed by project ID for easy lookup
+  blogPreview: BlogPreview;
+  projectBlogs: Record<string, ProjectBlog>; // Keyed by project ID for easy lookup
 }
