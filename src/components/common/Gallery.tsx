@@ -36,12 +36,22 @@ export function Gallery({ images, className }: { images: SanityAsset[]; classNam
                 style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
                 onClick={() => setSelectedIndex(idx)}
               >
-                <img
-                  src={img.assetUrl}
-                  alt={img.altText || 'Gallery image'}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
+                {img.type === 'video' ? (
+                  <video 
+                    src={img.assetUrl}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    muted
+                    loop
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={img.assetUrl}
+                    alt={img.altText || 'Gallery image'}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                )}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors pointer-events-none" />
               </div>
             )

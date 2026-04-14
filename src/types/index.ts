@@ -71,7 +71,8 @@ export interface ContactSection {
 // Blog / Project Detail Page Interfaces
 export interface BlogPreview {
   // uplift-states: HomeSection
-  profileDetails: HomeSection;
+  profileDetails: HomeSection; // not use the selfPortrait
+  profilePhoto?: SanityAsset; // use this instead
   description: string; // markdown
   carousel: SanityAsset[];
 }

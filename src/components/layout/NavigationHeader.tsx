@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu, X } from "lucide-react";
 import type { PortfolioBrandIcon } from "../../types";
 import { useActiveSection } from "../../hooks/useActiveSection";
-import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
 
 interface NavigationHeaderProps {
   brand?: PortfolioBrandIcon;
@@ -11,6 +11,7 @@ interface NavigationHeaderProps {
 
 export function NavigationHeader({ brand }: NavigationHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const sectionIds = useMemo(() => ['home', 'about', 'projects', 'contact'], []);
   const activeSection = useActiveSection(sectionIds, brand?.portfolioBrandName);
@@ -21,6 +22,8 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
   ];
+
+  const getHref = (id: string) => location.pathname === '/' ? `#${id}` : `/#${id}`;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background">
@@ -42,9 +45,9 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={getHref(link.id)}
                 className={`transition-colors pb-1 border-b-2 ${
-                  activeSection === link.id
+                  activeSection === link.id && location.pathname === '/'
                     ? 'text-primary border-accent'
                     : 'text-secondary hover:text-primary border-transparent'
                 }`}
@@ -74,10 +77,10 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={getHref(link.id)}
                 onClick={() => setIsOpen(false)}
                 className={`transition-colors w-fit ${
-                  activeSection === link.id
+                  activeSection === link.id && location.pathname === '/'
                     ? 'text-primary border-b-2 border-accent pb-1'
                     : 'text-secondary hover:text-primary pb-1 border-b-2 border-transparent'
                 }`}
