@@ -35,6 +35,23 @@ export function ProjectBlog() {
     return "Blogs";
   };
 
+  useEffect(() => {
+    if (data?.brand) {
+      if (data.brand.image?.assetUrl) {
+        let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'icon';
+          document.head.appendChild(link);
+        }
+        link.href = data.brand.image.assetUrl;
+      }
+      if (data.brand.portfolioBrandName) {
+        document.title = `${data.brand.portfolioBrandName} | Blogs | ${getCurrentTabName()}`;
+      }
+    }
+  }, [data, location.pathname]); // Updates when data loads or path changes
+
   const renderMainContent = () => {
     if (isPreview && data?.blogPreview) {
       return <PreviewTabSection data={data.blogPreview} />;
@@ -42,7 +59,7 @@ export function ProjectBlog() {
 
     if (!activeProject) {
       return (
-        <div className="flex h-[50vh] items-center justify-center border border-dashed border-border rounded-lg p-8">
+        <div className="flex h-[50vh] items-center justify-center border border-dashed border-border rounded-lg p-8 bg-card">
           <p className="text-secondary text-lg text-center">
             Details for this project are not available yet.
           </p>
@@ -100,7 +117,7 @@ export function ProjectBlog() {
         </div>
       )}
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-8 md:py-24 transition-all pb-24">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-6 md:py-12 transition-all pb-16">
         {isLoading ? (
           <div className="w-full flex justify-center py-20">
             <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />

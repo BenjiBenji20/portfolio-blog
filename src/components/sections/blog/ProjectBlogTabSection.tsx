@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { ProjectBlogEntry } from '../../../types';
 import { Gallery } from '../../common/Gallery';
-import { MarkdownText } from '../../common/MarkdownText';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 import { FaGithub } from 'react-icons/fa';
+import { ReadMoreMarkdown } from '../../common/ReadMoreMarkdown';
 
 interface ProjectBlogTabSectionProps {
   entries: ProjectBlogEntry[];
@@ -38,18 +38,18 @@ export function ProjectBlogTabSection({ entries }: ProjectBlogTabSectionProps) {
 
   if (!entries || entries.length === 0) {
     return (
-      <div className="w-full flex h-64 items-center justify-center border border-dashed border-zinc-800 rounded-lg">
+      <div className="w-full flex h-64 items-center justify-center border border-dashed border-border bg-card rounded-lg">
         <p className="text-secondary text-sm">No blog entries found for this project.</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full flex flex-col space-y-12">
+    <div className="w-full flex flex-col space-y-8">
       {displayedEntries.map((entry) => (
-        <article key={entry.id} className="flex flex-col space-y-4">
+        <article key={entry.id} className="flex flex-col space-y-4 border border-border rounded-xl p-5 sm:p-7 bg-card shadow-sm hover:shadow-md transition-shadow">
           <header className="flex flex-col space-y-2">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
+            <h2 className="text-xl md:text-2xl font-bold text-primary tracking-tight">
               {entry.title}
             </h2>
             <time dateTime={entry.datetime} className="text-sm font-medium text-tertiary">
@@ -63,12 +63,12 @@ export function ProjectBlogTabSection({ entries }: ProjectBlogTabSectionProps) {
 
           {entry.assets && entry.assets.length > 0 && (
             <div className="w-full py-2">
-              <Gallery images={entry.assets} />
+              <Gallery images={entry.assets} className="h-[250px] sm:h-[350px] lg:h-[450px]" />
             </div>
           )}
 
           <div className="prose-container w-full max-w-none">
-            <MarkdownText content={entry.description} />
+            <ReadMoreMarkdown content={entry.description} maxHeight={200} />
           </div>
 
           {entry.commitLink && (
@@ -77,16 +77,13 @@ export function ProjectBlogTabSection({ entries }: ProjectBlogTabSectionProps) {
                 href={entry.commitLink} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors rounded hover:bg-zinc-800/50 px-2 py-1 -ml-2"
+                className="inline-flex items-center space-x-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors rounded hover:bg-card-hover/50 px-2 py-1 -ml-2"
               >
                 <FaGithub size={16} />
                 <span>View Commit</span>
               </a>
             </div>
           )}
-
-          {/* Separation between posts */}
-          <hr className="border-t border-zinc-800/50 mt-8 mb-4 last:hidden" />
         </article>
       ))}
 

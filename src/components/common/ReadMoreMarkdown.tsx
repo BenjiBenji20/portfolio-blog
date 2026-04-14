@@ -4,7 +4,7 @@ import { cn } from '../../utils/cn';
 
 interface ReadMoreMarkdownProps {
   content: string;
-  maxHeight?: number; // Maximum height in pixels before truncating
+  maxHeight?: number;
   className?: string;
 }
 
@@ -15,7 +15,6 @@ export function ReadMoreMarkdown({ content, maxHeight = 160, className }: ReadMo
 
   useEffect(() => {
     if (contentRef.current) {
-      // Check if the scroll height exceeds the max height
       if (contentRef.current.scrollHeight > maxHeight) {
         setNeedsTruncation(true);
       } else {
@@ -25,21 +24,28 @@ export function ReadMoreMarkdown({ content, maxHeight = 160, className }: ReadMo
   }, [content, maxHeight]);
 
   return (
-    <div className={cn("relative w-full", className)}>
-      <div 
-        ref={contentRef}
-        className={cn(
-          "w-full overflow-hidden transition-all duration-300",
-          !isExpanded && needsTruncation ? "relative" : ""
-        )}
-        style={{ maxHeight: !isExpanded && needsTruncation ? `${maxHeight}px` : undefined }}
-      >
-        <MarkdownText content={content} />
-      </div>
+    <div className={cn("w-full flex flex-col items-start", className)}>
       
-      {!isExpanded && needsTruncation && (
-        <div className="absolute bottom-0 left-0 w-full h-16 pointer-events-none bg-gradient-to-t from-background to-transparent" />
-      )}
+      <div className="relative w-full">
+        <div 
+          ref={contentRef}
+          className="w-full overflow-hidden transition-[max-height] duration-300 ease-in-out"
+          style={{ 
+            maxHeight: !isExpanded && needsTruncation ? `${maxHeight}px` : undefined,
+            // This is the magic CSS Mask that fades the content itself
+            WebkitMaskImage: !isExpanded && needsTruncation 
+              ? 'linear-gradient(to bottom, black 60%, transparent 100%)' 
+              : undefined,
+            maskImage: !isExpanded && needsTruncation 
+              ? 'linear-gradient(to bottom, black 60%, transparent 100%)' 
+              : undefined
+          }}
+        >
+          <MarkdownText content={content} />
+        </div>
+        
+        {/* Notice we completely removed the absolute gradient overlay div! */}
+      </div>
       
       {needsTruncation && (
         <button
@@ -49,6 +55,7 @@ export function ReadMoreMarkdown({ content, maxHeight = 160, className }: ReadMo
           {isExpanded ? 'Show less' : 'Read more'}
         </button>
       )}
+      
     </div>
   );
 }
