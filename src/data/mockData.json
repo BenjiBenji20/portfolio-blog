@@ -2,6 +2,7 @@
   "brand": {
     "portfolioBrandName": "MyPortfolio",
     "image": {
+      "type": "image",
       "assetUrl": "https://cdn-icons-png.flaticon.com/512/4365/4365945.png",
       "altText": "MyPortfolio Logo"
     }
@@ -11,6 +12,7 @@
     "role": "AI & Backend Engineer",
     "tagline": "Architecting RAG systems and resilient backend pipelines.",
     "selfPortrait": {
+      "type": "image",
       "assetUrl": "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=600&auto=format&fit=crop",
       "altText": "Developer Portrait"
     },
@@ -20,35 +22,25 @@
     ]
   },
   "about": {
-    "mainDescription": "I build scalable backend systems, AI-integrated pipelines, and modern interactive frontends. My journey into programming started with curiosity about how complex applications abstract their underlying architecture so elegantly. Over the years, I've honed my skills deeply in distributed systems, RESTful microservices, and large-scale data processing leveraging modern frameworks like FastAPI, React, and various LLM orchestrators. I believe in clean code, testing, and continuous learning, often spending hours diving into the source code of popular open-source libraries to understand their paradigms. Outside of coding, I am passionate about mentoring students transitioning into tech, sharing my philosophy on software design patterns.I build scalable backend systems, AI-integrated pipelines, and modern interactive frontends. My journey into programming started with curiosity about how complex applications abstract their underlying architecture so elegantly. Over the years, I've honed my skills deeply in distributed systems, RESTful microservices, and large-scale data processing leveraging modern frameworks like FastAPI, React, and various LLM orchestrators. I believe in clean code, testing, and continuous learning, often spending hours diving into the source code of popular open-source libraries to understand their paradigms. Outside of coding, I am passionate about mentoring students transitioning into tech, sharing my philosophy on software design patterns.",
+    "mainDescription": "I build scalable backend systems, AI-integrated pipelines, and modern interactive frontends. My journey into programming started with curiosity about how complex applications abstract their underlying architecture so elegantly. Over the years, I've honed my skills deeply in distributed systems, RESTful microservices, and large-scale data processing leveraging modern frameworks like FastAPI, React, and various LLM orchestrators. I believe in clean code, testing, and continuous learning, often spending hours diving into the source code of popular open-source libraries to understand their paradigms. Outside of coding, I am passionate about mentoring students transitioning into tech, sharing my philosophy on software design patterns.",
     "personalInformation": [
       { "label": "Location", "value": "Malabon, PH" },
       { "label": "Focus", "value": "Backend & AI Engineering" },
       { "label": "Status", "value": "Available for roles" }
     ],
     "images": [
-      { "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Code on screen" },
-      { "assetUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop", "altText": "Laptop workspace" },
-      { "assetUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop", "altText": "Coding late night" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Code on screen" },
-      { "assetUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop", "altText": "Laptop workspace" },
-      { "assetUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop", "altText": "Coding late night" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" },
-      { "assetUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop", "altText": "Computer setup" }
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Architecture Code", "description": "Reviewing system architecture patterns and identifying pipeline bottlenecks during optimization sessions." },
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Architecture Code", "description": "Reviewing system architecture patterns and identifying pipeline bottlenecks during optimization sessions." },
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Architecture Code", "description": "Reviewing system architecture patterns and identifying pipeline bottlenecks during optimization sessions." },
+      { "type": "video", "assetUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "altText": "Server load tracing", "description": "Tracing heavy microservice bottlenecks over dynamic cluster networks under high concurrency payload runs." },
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop", "altText": "Late night programming", "description": "Late night iterative debugging loops ensuring code resilience and performance standards are met." }
     ],
     "moreAboutMe": [
       {
         "headerTitle": "My Philosophy",
         "description": "I believe in clean code and architectural transparency. Building tools should not mean obfuscating complexity unfairly. A well-designed system speaks for itself.",
         "images": [
-          { "assetUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=600&auto=format&fit=crop", "altText": "Philosophy desk" }
+          { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=600&auto=format&fit=crop", "altText": "Philosophy desk" }
         ]
       },
       {
@@ -85,6 +77,7 @@
       "datetime": "2022-01-01T00:00:00Z",
       "repositoryLink": "https://github.com/yourusername/intellichat-core",
       "thumbnail": {
+        "type": "image",
         "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
         "altText": "Dashboard metrics interface"
       }
@@ -96,6 +89,7 @@
       "datetime": "2022-01-01T00:00:00Z",
       "repositoryLink": "https://github.com/yourusername/neural-parser",
       "thumbnail": {
+        "type": "image",
         "assetUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop",
         "altText": "Code editor snippet"
       }
@@ -107,64 +101,86 @@
       "datetime": "2022-01-01T00:00:00Z",
       "repositoryLink": "https://github.com/yourusername/go-stream",
       "thumbnail": {
+        "type": "image",
         "assetUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
         "altText": "Circuit board pattern"
       }
     }
   ],
   "contact": {
-      "email": "yourname.dev@gmail.com",
-      "availability": "Open for Junior Roles",
-      "location": "Malabon, Metro Manila",
-      "timezone": "GMT+8",
-      "formOptions": [
-        "Job Opportunity",
-        "Freelance/Contract",
-        "Technical Inquiry",
-        "Just saying hi!"
-      ],
-      "socials": [
-        { "platform": "GitHub", "url": "https://github.com", "username": "@yourgithub", "iconUrl": { "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", "altText": "Github" } },
-        { "platform": "LinkedIn", "url": "https://linkedin.com", "username": "Your Name", "iconUrl": { "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg", "altText": "LinkedIn" } },
-        { "platform": "X", "url": "https://twitter.com", "username": "@yourhandle", "iconUrl": { "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/twitter/twitter-original.svg", "altText": "Twitter" } }
-      ]
+    "email": "yourname.dev@gmail.com",
+    "availability": "Open for Junior Roles",
+    "location": "Malabon, Metro Manila",
+    "timezone": "GMT+8",
+    "formOptions": [
+      "Job Opportunity",
+      "Freelance/Contract",
+      "Technical Inquiry",
+      "Just saying hi!"
+    ],
+    "socials": [
+      { "platform": "GitHub", "url": "https://github.com", "username": "@yourgithub", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", "altText": "Github" } },
+      { "platform": "LinkedIn", "url": "https://linkedin.com", "username": "Your Name", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg", "altText": "LinkedIn" } },
+      { "platform": "X", "url": "https://twitter.com", "username": "@yourhandle", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/twitter/twitter-original.svg", "altText": "Twitter" } }
+    ]
   },
-  "projectDetailsData": {
+  "blogPreview": {
+    "profileDetails": {
+      "name": "Benji Canones",
+      "role": "AI & Backend Engineer",
+      "tagline": "Architecting RAG systems and resilient backend pipelines.",
+      "selfPortrait": {
+        "type": "image",
+        "assetUrl": "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=600&auto=format&fit=crop",
+        "altText": "Developer Portrait"
+      },
+      "links": [
+        { "platform": "GitHub", "url": "https://github.com/yourusername" }
+      ]
+    },
+    "description": "Welcome to my project deep dives. Here I document the architecture decisions, challenges, and code structures behind my implementations.",
+    "carousel": [
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Code editor snippet" },
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop", "altText": "Circuit board pattern" }
+    ]
+  },
+  "projectBlogs": {
     "intellichat-core": {
       "id": "intellichat-core",
-      "title": "IntelliChat RAG Backend",
-      "description": "A highly scalable RAG engine.",
-      "deepDive": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
-      "repoLink": "https://github.com/yourusername/intellichat",
-      "liveSiteLink": "https://intellichat-demo.com",
-      "carousel": [
-        { "assetUrl": "/assets/images/demo1.jpg", "altText": "Demo 1" }
-      ],
-      "dailyBlogs": [
+      "deepDive": {
+        "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
+        "repoLink": "https://github.com/yourusername/intellichat",
+        "liveSiteLink": "https://intellichat-demo.com"
+      },
+      "projectBlogs": [
         {
           "id": "day-12",
           "title": "Optimizing Vector Search Latency",
           "datetime": "2026-04-05T10:00:00Z",
           "description": "Switched from a standard HNSW index to a quantized vector search, reducing retrieval latency by 35%.",
           "commitLink": "https://github.com/yourusername/intellichat/commit/abc1234",
-          "images": []
+          "assets": []
         }
       ],
       "documentation": [
         {
           "type": "Diagram",
-          "url": "/assets/diagrams/rag-pipeline.png",
+          "url": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop",
           "description": "High-level flow from API gateway to Vector DB."
         }
       ],
       "technologies": [
         {
           "name": "PostgreSQL with pgvector",
-          "whyDescription": "Chosen for ACID compliance alongside vector similarity search in a single datastore."
+          "description": "Chosen for ACID compliance alongside vector similarity search in a single datastore."
         }
       ],
       "uiScreenshots": [
-        { "assetUrl": "/assets/images/ui-1.jpg", "altText": "Settings Panel" }
+        { 
+          "type": "image", 
+          "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", 
+          "altText": "Settings Panel" 
+        }
       ]
     }
   }
