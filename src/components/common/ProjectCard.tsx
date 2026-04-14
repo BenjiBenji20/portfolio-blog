@@ -16,9 +16,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* Left Column (Texts & Actions) */}
       <div className="w-full lg:w-1/2 flex flex-col space-y-6 text-left">
         <div className="space-y-4">
-          <h3 className="text-3xl md:text-4xl font-bold text-primary tracking-tight break-words">
-            {project.title}
-          </h3>
+          <div className="flex justify-between items-center w-full gap-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-primary tracking-tight break-words">
+              {project.title}
+            </h3>
+            {project.datetime && (
+              <p className="text-sm text-secondary/60 font-normal whitespace-nowrap">
+                {new Date(project.datetime).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
+              </p>
+            )}
+          </div>
           <p className="text-lg md:text-xl text-secondary leading-relaxed font-light">
             {project.shortDescription}
           </p>

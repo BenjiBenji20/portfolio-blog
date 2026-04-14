@@ -51,13 +51,10 @@ export interface TechStackItem {
 export interface ProjectSummary {
   id: string; // Will map to Sanity's _id or slug
   title: string;
+  datetime: string; // ISO String
   shortDescription: string;
   repositoryLink?: string;
   thumbnail?: SanityImage;
-}
-
-export interface ProjectSummaries {
-  projectSummaries: ProjectSummary[];
 }
 
 export interface ContactSection {
@@ -72,9 +69,9 @@ export interface ContactSection {
 // Blog / Project Detail Page Interfaces
 export interface DailyBlogEntry {
   id: string;
-  title: string;
+  title: string; // ### Title
   datetime: string; // ISO String
-  description: string;
+  description: string; // Markdown
   commitLink?: string;
   images?: SanityImage[];
 }
