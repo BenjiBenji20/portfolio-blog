@@ -88,11 +88,16 @@ export interface ProjectBlogEntry {
 }
 
 // isolate through project id
-export interface ProjectTechnology {
+export interface TechStacks {
   type: 'language' | 'deployment' | 'tool' | 'ai-agent' | 'others';
-  name: string;
-  description?: string;
-  asset?: SanityAsset;
+  description?: string; // tech list description
+  assets?: SanityAsset[]; // tech list assets
+}
+
+export interface ProjectTechnology {
+  title?: string; // any title 
+  description?: string; // project level stacks description
+  techStacks: TechStacks[]; // module level list of stacks put in card
 }
 
 // isolate through project id

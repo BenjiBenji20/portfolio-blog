@@ -232,8 +232,121 @@
       ],
       "technologies": [
         {
-          "name": "PostgreSQL with pgvector",
-          "description": "Chosen for ACID compliance alongside vector similarity search in a single datastore."
+          "title": "Database Architecture",
+          "description": "Storing massive unstructured documents alongside embeddings requires an ACID-compliant engine.",
+          "techStacks": [
+            {
+              "type": "tool",
+              "description": "PostgreSQL was utilized alongside the `pgvector` extension. We selected PostgreSQL 16 because of its native SIMD optimizations for vector similarity matching.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", "altText": "PostgreSQL" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Backend Services",
+          "description": "Performance and rapid iteration was necessary because RAG logic evolves constantly with prompt adjustments.",
+          "techStacks": [
+            {
+              "type": "language",
+              "description": "Python's rich AI ecosystem made it the obvious choice for handling tokenization pipelines.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", "altText": "Python" }
+              ]
+            },
+            {
+              "type": "tool",
+              "description": "FastAPI provides synchronous and asynchronous interface mixing, which we strictly needed because embedding relies on remote APIs.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg", "altText": "FastAPI" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Frontend App",
+          "description": "The administrative dashboard needed highly interactive visualizations for document node graphs.",
+          "techStacks": [
+            {
+              "type": "language",
+              "description": "Used modern TypeScript for static checks and cleaner refactors.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", "altText": "TypeScript" }
+              ]
+            },
+            {
+              "type": "others",
+              "description": "React powered by Vite ensures ultra-fast HMR in development.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", "altText": "React" },
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", "altText": "TailwindCSS" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "AI & Orchestration",
+          "description": "Connecting standard application flows with nondeterministic LLMs required a deterministic intermediary.",
+          "techStacks": [
+            {
+              "type": "ai-agent",
+              "description": "LangChain's graph primitives allowed us to build custom memory schemas across chat sessions.",
+              "assets": []
+            }
+          ]
+        },
+        {
+          "title": "Message Brokering",
+          "description": "Document parsing is an extensive background process.",
+          "techStacks": [
+            {
+              "type": "tool",
+              "description": "Redis handles our Celery task queues reliably, while additionally caching repetitive queries to save OpenAI token limits.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg", "altText": "Redis" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Containerization",
+          "description": "Docker streamlines deployment from staging to production reliably.",
+          "techStacks": [
+            {
+              "type": "deployment",
+              "description": "Multi-stage Dockerfiles optimized image sizes effectively down to just over 150MB, stripping all unneeded GCC compile dependencies.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", "altText": "Docker" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Core Compute Cloud",
+          "description": "Cloud hosting requires resilience for horizontal scaling of worker nodes.",
+          "techStacks": [
+            {
+              "type": "deployment",
+              "description": "AWS ECS combined with Fargate allows us to allocate hardware on the fly precisely as queuing backlogs expand.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", "altText": "AWS" }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Edge Middleware",
+          "description": "Serving static bundles seamlessly closer to consumers.",
+          "techStacks": [
+            {
+              "type": "deployment",
+              "description": "Vercel acts as our Edge CDN for Next.js, handling ISR securely to ensure load isn't placed constantly on the Postgres instance.",
+              "assets": [
+                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg", "altText": "Vercel" }
+              ]
+            }
+          ]
         }
       ],
       "uiScreenshots": [

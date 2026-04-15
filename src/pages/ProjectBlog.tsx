@@ -8,6 +8,7 @@ import { BlogLeftNavigation } from '../components/layout/BlogLeftNavigation';
 import { PreviewTabSection } from '../components/sections/blog/PreviewTabSection';
 import { ProjectBlogTabSection } from '../components/sections/blog/ProjectBlogTabSection';
 import { ProjectDeepDiveTabSection } from '../components/sections/blog/ProjectDeepDiveTabSection';
+import { ProjectTechnologyTabSection } from '../components/sections/blog/ProjectTechnologyTabSection';
 import { ChevronDown } from 'lucide-react'; // Changed import here
 import { cn } from '../utils/cn';
 
@@ -80,7 +81,15 @@ export function ProjectBlog() {
       );
     }
     if (path.endsWith('/technology')) {
-       return <h2 className="text-3xl font-bold text-primary mb-6">Technologies</h2>;
+       const activeSummary = data?.projectSummaries?.find(p => p.id === projectId);
+       return (
+         <div className="w-full">
+           <ProjectTechnologyTabSection 
+             entries={activeProject.technologies || []} 
+             projectTitle={activeSummary?.title || 'Project'} 
+           />
+         </div>
+       );
     }
     if (path.endsWith('/images')) {
        return <h2 className="text-3xl font-bold text-primary mb-6">Images</h2>;
