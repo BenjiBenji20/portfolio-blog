@@ -88,30 +88,27 @@ export interface ProjectBlogEntry {
 }
 
 // isolate through project id
-export interface ProjectDocumentation {
-  type: 'Video' | 'Diagram';
-  url: string;
-  description: string;
-}
-
-// isolate through project id
 export interface ProjectTechnology {
+  type: 'language' | 'deployment' | 'tool' | 'ai-agent' | 'others';
   name: string;
   description?: string;
+  asset?: SanityAsset;
 }
 
 // isolate through project id
 export interface ProjectDeepDive {
+  type: 'video' | 'diagram'; // video link can be youtube or vimeo
+  assets?: SanityAsset[];
   description: string; // markdown
   repoLink?: string;
   liveSiteLink?: string;
 }
 
+// isolate through project id
 export interface ProjectBlog {
   id: string;
-  deepDive: ProjectDeepDive;
+  deepDives: ProjectDeepDive[];
   projectBlogs: ProjectBlogEntry[];
-  documentation: ProjectDocumentation[];
   technologies: ProjectTechnology[];
   uiScreenshots: SanityAsset[];
 }

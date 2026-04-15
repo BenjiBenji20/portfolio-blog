@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function useActiveSection(sectionIds: string[], brandName?: string) {
   const [activeSection, setActiveSection] = useState<string>(sectionIds[0] || 'home');
+  const location = useLocation();
 
   useEffect(() => {
+    // Only run active section tracking on the homepage
+    if (location.pathname !== '/') return;
+
     const handleScroll = () => {
       let current = activeSection;
       
@@ -49,7 +54,7 @@ export function useActiveSection(sectionIds: string[], brandName?: string) {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [sectionIds, activeSection, brandName]);
+  }, [sectionIds, activeSection, brandName, location.pathname]);
 
-  return activeSection;
+  return location.pathname === '/' ? activeSection : '';
 }

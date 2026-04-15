@@ -14,9 +14,8 @@ export function BlogLeftNavigation({ projects }: BlogLeftNavigationProps) {
   const isPreview = location.pathname === '/blogs/preview' || location.pathname === '/blogs';
 
   const projectTabs = [
-    { name: 'Deep Dive', path: `/blogs/${projectId}/deepdive` },
     { name: 'Blogs', path: `/blogs/${projectId}` },
-    { name: 'Documentation', path: `/blogs/${projectId}/documentation` },
+    { name: 'Deep Dive', path: `/blogs/${projectId}/deepdive` },
     { name: 'Technologies', path: `/blogs/${projectId}/technology` },
     { name: 'Images', path: `/blogs/${projectId}/images` },
   ];

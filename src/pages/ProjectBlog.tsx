@@ -29,7 +29,6 @@ export function ProjectBlog() {
     if (isPreview) return "Preview";
     const path = location.pathname;
     if (path.endsWith('/deepdive')) return "Deep Dive";
-    if (path.endsWith('/documentation')) return "Documentation";
     if (path.endsWith('/technology')) return "Technologies";
     if (path.endsWith('/images')) return "Images";
     return "Blogs";
@@ -73,12 +72,9 @@ export function ProjectBlog() {
       return (
         <div className="w-full">
           <h2 className="text-3xl font-bold text-primary mb-6 border-b border-border pb-4">Deep Dive</h2>
-          <p className="text-secondary">{activeProject.deepDive.description}</p>
+          <p className="text-secondary">{activeProject.deepDives?.[0]?.description || "No deep dive description available."}</p>
         </div>
       );
-    }
-    if (path.endsWith('/documentation')) {
-       return <h2 className="text-3xl font-bold text-primary mb-6">Documentation</h2>;
     }
     if (path.endsWith('/technology')) {
        return <h2 className="text-3xl font-bold text-primary mb-6">Technologies</h2>;

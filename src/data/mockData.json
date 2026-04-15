@@ -147,11 +147,13 @@
   "projectBlogs": {
     "intellichat-core": {
       "id": "intellichat-core",
-      "deepDive": {
-        "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
-        "repoLink": "https://github.com/yourusername/intellichat",
-        "liveSiteLink": "https://intellichat-demo.com"
-      },
+      "deepDives": [
+        {
+          "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
+          "repoLink": "https://github.com/yourusername/intellichat",
+          "liveSiteLink": "https://intellichat-demo.com"
+        }
+      ],
       "projectBlogs": [
         {
           "id": "day-12",
@@ -198,7 +200,7 @@
           ]
         }
       ],
-      "documentation": [
+      "Documentation": [
         {
           "type": "Diagram",
           "url": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop",
