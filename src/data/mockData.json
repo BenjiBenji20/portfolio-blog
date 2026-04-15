@@ -147,36 +147,6 @@
   "projectBlogs": {
     "intellichat-core": {
       "id": "intellichat-core",
-      "deepDives": [
-        {
-          "title": "Architecture Overview",
-          "assets": [
-            {
-              "type": "image",
-              "description": "",
-              "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop",
-              "altText": "Code editor snippet"
-            }
-          ],
-          "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
-          "repoLink": "https://github.com/yourusername/intellichat",
-          "liveSiteLink": "https://intellichat-demo.com",
-          "liveAPIDocumentation": "https://intellichat-756513026425.asia-southeast1.run.app/docs"
-        },
-        {
-          "title": "Multimodal Vector Search Pipeline",
-          "assets": [
-            {
-              "type": "video",
-              "description": "YouTube Embed Explanation",
-              "assetUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-              "altText": "YouTube Video"
-            }
-          ],
-          "description": "Integrating a **multimodal** search using CLIP embeddings. The process involved vectorizing the images and aligning them with the text embeddings.\n\n```python\n# Multimodal Embedding\ndef embed_multimodal(image_path, text):\n    image_emb = clip_model.embed_image(image_path)\n    text_emb = clip_model.embed_text(text)\n    return concatenate(image_emb, text_emb)\n```\n\nIt improved the visual search capabilities by 40% based on our benchmark suite.",
-          "repoLink": "https://github.com/yourusername/intellichat"
-        }
-      ],
       "projectBlogs": [
         {
           "id": "day-12",
@@ -223,11 +193,34 @@
           ]
         }
       ],
-      "Documentation": [
+      "deepDives": [
         {
-          "type": "Diagram",
-          "url": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop",
-          "description": "High-level flow from API gateway to Vector DB."
+          "title": "Architecture Overview",
+          "assets": [
+            {
+              "type": "image",
+              "description": "",
+              "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop",
+              "altText": "Code editor snippet"
+            }
+          ],
+          "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
+          "repoLink": "https://github.com/yourusername/intellichat",
+          "liveSiteLink": "https://intellichat-demo.com",
+          "liveAPIDocumentation": "https://intellichat-756513026425.asia-southeast1.run.app/docs"
+        },
+        {
+          "title": "Multimodal Vector Search Pipeline",
+          "assets": [
+            {
+              "type": "video",
+              "description": "YouTube Embed Explanation",
+              "assetUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              "altText": "YouTube Video"
+            }
+          ],
+          "description": "Integrating a **multimodal** search using CLIP embeddings. The process involved vectorizing the images and aligning them with the text embeddings.\n\n```python\n# Multimodal Embedding\ndef embed_multimodal(image_path, text):\n    image_emb = clip_model.embed_image(image_path)\n    text_emb = clip_model.embed_text(text)\n    return concatenate(image_emb, text_emb)\n```\n\nIt improved the visual search capabilities by 40% based on our benchmark suite.",
+          "repoLink": "https://github.com/yourusername/intellichat"
         }
       ],
       "technologies": [
@@ -349,11 +342,65 @@
           ]
         }
       ],
-      "uiScreenshots": [
-        { 
-          "type": "image", 
-          "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", 
-          "altText": "Settings Panel" 
+      "images": [
+        {
+          "title": "Architecture Overview Vectors",
+          "description": "High-level visual schematics demonstrating how vector similarity bridges the gap between text embeddings and metadata querying over pgvector.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop", "altText": "Vector flow schematic" },
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop", "altText": "Code block parsing schematic" }
+          ]
+        },
+        {
+          "title": "Administrative Dashboard",
+          "description": "The custom metrics panel allows monitoring total API cost per prompt and the latency between the node edges.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", "altText": "Dashboard dark mode panel" },
+            { "type": "video", "assetUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "altText": "Dashboard demonstration (will be stripped)" }
+          ]
+        },
+        {
+          "title": "RAG Chain Pipeline Tests",
+          "description": "Visualizing the node execution traces ensures deterministic flow patterns.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "LangChain Trace Logs" }
+          ]
+        },
+        {
+          "title": "Container Orchestration Setup",
+          "description": "Our custom CI/CD pipelines deploying multiple Docker instances safely using ECS.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=600&auto=format&fit=crop", "altText": "Docker ECS Pipeline" }
+          ]
+        },
+        {
+          "title": "Entity Association Layers",
+          "description": "We tested standard relation mappings against GraphQL setups for metadata.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop", "altText": "Entity mapping architecture" }
+          ]
+        },
+        {
+          "title": "Early Prototype Work",
+          "description": "Initial design proofs utilizing simple NextJS scaffolds.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop", "altText": "Prototype code editor" }
+          ]
+        },
+        {
+          "title": "Performance Benchmarking",
+          "description": "Charting 1 million vector search queries across concurrent worker threads mapping p99 tail latencies.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop", "altText": "Latency Graph" }
+          ]
+        },
+        {
+          "title": "Final Production State",
+          "description": "The completed frontend implementation functioning effectively on the Edge.",
+          "contents": [
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", "altText": "Production Dashboard Final" },
+            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=600&auto=format&fit=crop", "altText": "User Settings view" }
+          ]
         }
       ]
     }

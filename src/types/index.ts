@@ -112,16 +112,18 @@ export interface ProjectDeepDive {
 
 // isolate through project id. Serves as UI gallery for the project
 export interface ProjectImages {
-  uiScreenshots: SanityAsset[];
-  description?: string;
+  title: string; // entry/card level title
+  description?: string; // entry/card level description
+  contents: SanityAsset[];
 }
 
 // isolate through project id
 export interface ProjectBlog {
   id: string;
-  deepDives: ProjectDeepDive[];
   projectBlogs: ProjectBlogEntry[];
+  deepDives: ProjectDeepDive[];
   technologies: ProjectTechnology[];
+  images: ProjectImages[];
 }
 
 // Root Mock Data Interface

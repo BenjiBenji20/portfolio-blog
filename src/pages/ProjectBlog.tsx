@@ -9,6 +9,7 @@ import { PreviewTabSection } from '../components/sections/blog/PreviewTabSection
 import { ProjectBlogTabSection } from '../components/sections/blog/ProjectBlogTabSection';
 import { ProjectDeepDiveTabSection } from '../components/sections/blog/ProjectDeepDiveTabSection';
 import { ProjectTechnologyTabSection } from '../components/sections/blog/ProjectTechnologyTabSection';
+import { ProjectImagesTabSection } from '../components/sections/blog/ProjectImagesTabSection';
 import { ChevronDown } from 'lucide-react'; // Changed import here
 import { cn } from '../utils/cn';
 
@@ -92,7 +93,11 @@ export function ProjectBlog() {
        );
     }
     if (path.endsWith('/images')) {
-       return <h2 className="text-3xl font-bold text-primary mb-6">Images</h2>;
+       return (
+         <div className="w-full">
+           <ProjectImagesTabSection entries={activeProject.images || []} />
+         </div>
+       );
     }
 
     return <ProjectBlogTabSection entries={activeProject.projectBlogs} />;
