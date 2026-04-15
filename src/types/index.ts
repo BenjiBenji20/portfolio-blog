@@ -1,6 +1,6 @@
 // Shared Types
 export interface SanityAsset {
-  type: 'image' | 'video';
+  type: 'image' | 'video'; // video link can be youtube or vimeo
   description?: string; // display during lightbox
   assetUrl: string;
   altText: string;
@@ -97,11 +97,18 @@ export interface ProjectTechnology {
 
 // isolate through project id
 export interface ProjectDeepDive {
-  type: 'video' | 'diagram'; // video link can be youtube or vimeo
+  title: string; // since its a list, title should be provided to identify each deep dive item
+  liveAPIDocumentation?: string; // embed api documentation (such as openapi/swagger) in iframe
   assets?: SanityAsset[];
   description: string; // markdown
   repoLink?: string;
   liveSiteLink?: string;
+}
+
+// isolate through project id. Serves as UI gallery for the project
+export interface ProjectImages {
+  uiScreenshots: SanityAsset[];
+  description?: string;
 }
 
 // isolate through project id
@@ -110,7 +117,6 @@ export interface ProjectBlog {
   deepDives: ProjectDeepDive[];
   projectBlogs: ProjectBlogEntry[];
   technologies: ProjectTechnology[];
-  uiScreenshots: SanityAsset[];
 }
 
 // Root Mock Data Interface

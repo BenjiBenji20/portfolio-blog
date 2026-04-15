@@ -3,6 +3,12 @@ import type { SanityAsset } from '../../types';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
+export const isYouTube = (url: string) => url.includes('youtube.com') || url.includes('youtu.be');
+export const getYouTubeId = (url: string) => {
+   const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+   return match ? match[1] : null;
+};
+
 interface LightBoxProps {
   images: SanityAsset[];
   selectedIndex: number;
@@ -86,13 +92,24 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
           {/* Bound Internal Element */}
           <div className="w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             {activeAsset.type === 'video' ? (
-               <video 
-                  src={activeAsset.assetUrl}
-                  className="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm pointer-events-auto"
-                  controls
-                  autoPlay
-                  playsInline
-               />
+               isYouTube(activeAsset.assetUrl) ? (
+                 <iframe 
+                    src={`https://www.youtube.com/embed/${getYouTubeId(activeAsset.assetUrl)}?autoplay=1&rel=0`}
+                    className="w-full max-w-5xl h-[60vh] md:h-[75vh] object-contain shadow-2xl rounded-sm pointer-events-auto bg-black"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={activeAsset.altText || 'YouTube Video'}
+                 />
+               ) : (
+                 <video 
+                    src={activeAsset.assetUrl}
+                    className="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm pointer-events-auto"
+                    controls
+                    autoPlay
+                    playsInline
+                 />
+               )
             ) : (
                <img
                   src={activeAsset.assetUrl}
@@ -144,7 +161,16 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
                  onClick={() => setSelectedIndex(idx)}
                >
                  {asset.type === 'video' ? (
-                   <video src={asset.assetUrl} className="w-full h-full object-cover pointer-events-none" />
+                   isYouTube(asset.assetUrl) ? (
+                     <>
+                       <img src={`https://img.youtube.com/vi/${getYouTubeId(asset.assetUrl)}/default.jpg`} alt="YouTube thumbnail" className="w-full h-full object-cover pointer-events-none" />
+                       <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+                         <div className="w-0 h-0 border-t-4 border-t-transparent border-l-[6px] border-l-white border-b-4 border-b-transparent ml-0.5" />
+                       </div>
+                     </>
+                   ) : (
+                     <video src={asset.assetUrl} className="w-full h-full object-cover pointer-events-none" />
+                   )
                  ) : (
                    <img src={asset.assetUrl} alt="Thumbnail view" className="w-full h-full object-cover pointer-events-none" />
                  )}

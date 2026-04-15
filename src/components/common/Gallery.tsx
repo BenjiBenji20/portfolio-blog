@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { cn } from '../../utils/cn';
 import type { SanityAsset } from '../../types';
-import { LightBox } from './LightBox';
+import { LightBox, isYouTube, getYouTubeId } from './LightBox';
 
 export function Gallery({ images, className }: { images: SanityAsset[]; className?: string }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -37,13 +37,29 @@ export function Gallery({ images, className }: { images: SanityAsset[]; classNam
                 onClick={() => setSelectedIndex(idx)}
               >
                 {img.type === 'video' ? (
-                  <video 
-                    src={img.assetUrl}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    muted
-                    loop
-                    playsInline
-                  />
+                  isYouTube(img.assetUrl) ? (
+                    <>
+                      <img 
+                        src={`https://img.youtube.com/vi/${getYouTubeId(img.assetUrl)}/hqdefault.jpg`}
+                        alt={img.altText || 'YouTube video thumbnail'}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                        <div className="w-12 h-12 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-[2px] border border-white/20 shadow-md transition-transform duration-500 group-hover:scale-110">
+                          <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-[2px]" />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <video 
+                      src={img.assetUrl}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      muted
+                      loop
+                      playsInline
+                    />
+                  )
                 ) : (
                   <img
                     src={img.assetUrl}

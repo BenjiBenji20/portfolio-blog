@@ -149,9 +149,32 @@
       "id": "intellichat-core",
       "deepDives": [
         {
+          "title": "Architecture Overview",
+          "assets": [
+            {
+              "type": "image",
+              "description": "",
+              "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop",
+              "altText": "Code editor snippet"
+            }
+          ],
           "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
           "repoLink": "https://github.com/yourusername/intellichat",
-          "liveSiteLink": "https://intellichat-demo.com"
+          "liveSiteLink": "https://intellichat-demo.com",
+          "liveAPIDocumentation": "https://intellichat-756513026425.asia-southeast1.run.app/docs"
+        },
+        {
+          "title": "Multimodal Vector Search Pipeline",
+          "assets": [
+            {
+              "type": "video",
+              "description": "YouTube Embed Explanation",
+              "assetUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              "altText": "YouTube Video"
+            }
+          ],
+          "description": "Integrating a **multimodal** search using CLIP embeddings. The process involved vectorizing the images and aligning them with the text embeddings.\n\n```python\n# Multimodal Embedding\ndef embed_multimodal(image_path, text):\n    image_emb = clip_model.embed_image(image_path)\n    text_emb = clip_model.embed_text(text)\n    return concatenate(image_emb, text_emb)\n```\n\nIt improved the visual search capabilities by 40% based on our benchmark suite.",
+          "repoLink": "https://github.com/yourusername/intellichat"
         }
       ],
       "projectBlogs": [

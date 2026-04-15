@@ -7,7 +7,8 @@ import { GlobalLoader } from '../components/layout/GlobalLoader';
 import { BlogLeftNavigation } from '../components/layout/BlogLeftNavigation';
 import { PreviewTabSection } from '../components/sections/blog/PreviewTabSection';
 import { ProjectBlogTabSection } from '../components/sections/blog/ProjectBlogTabSection';
-import { Menu, X } from 'lucide-react';
+import { ProjectDeepDiveTabSection } from '../components/sections/blog/ProjectDeepDiveTabSection';
+import { ChevronDown } from 'lucide-react'; // Changed import here
 import { cn } from '../utils/cn';
 
 export function ProjectBlog() {
@@ -49,7 +50,7 @@ export function ProjectBlog() {
         document.title = `${data.brand.portfolioBrandName} | Blogs | ${getCurrentTabName()}`;
       }
     }
-  }, [data, location.pathname]); // Updates when data loads or path changes
+  }, [data, location.pathname]); 
 
   const renderMainContent = () => {
     if (isPreview && data?.blogPreview) {
@@ -66,13 +67,15 @@ export function ProjectBlog() {
       );
     }
 
-    // TODO: separate TAB components
     const path = location.pathname;
     if (path.endsWith('/deepdive')) {
+      const activeSummary = data?.projectSummaries?.find(p => p.id === projectId);
       return (
         <div className="w-full">
-          <h2 className="text-3xl font-bold text-primary mb-6 border-b border-border pb-4">Deep Dive</h2>
-          <p className="text-secondary">{activeProject.deepDives?.[0]?.description || "No deep dive description available."}</p>
+          <ProjectDeepDiveTabSection 
+            entries={activeProject.deepDives || []} 
+            projectTitle={activeSummary?.title || 'Project'} 
+          />
         </div>
       );
     }
@@ -102,14 +105,20 @@ export function ProjectBlog() {
       {/* Mobile Top Bar */}
       {!isLoading && data && (
         <div className="md:hidden sticky top-16 z-40 w-full bg-background px-6 py-3 flex items-center shadow-sm">
+          {/* Changed the button content and styling here */}
           <button 
             onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-            className="mr-3 p-1.5 text-primary hover:bg-card rounded-md transition-colors focus:outline-none border border-border"
+            className="flex flex-1 items-center justify-between p-2 text-primary bg-card hover:bg-card-hover rounded-md transition-colors focus:outline-none border border-border"
             aria-label="Toggle mobile blog navigation"
           >
-            {isMobileNavOpen ? <X size={20} /> : <Menu size={20} />}
+            <span className="font-semibold text-primary">{getCurrentTabName()}</span>
+            <ChevronDown 
+              className={cn(
+                "w-5 h-5 text-secondary transition-transform duration-300",
+                isMobileNavOpen ? "rotate-180" : "rotate-0"
+              )} 
+            />
           </button>
-          <span className="font-semibold text-primary">{getCurrentTabName()}</span>
         </div>
       )}
 
