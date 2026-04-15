@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useParams, useLocation } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react'; // 1. Added Import
 import type { ProjectSummary } from '../../types';
 import { cn } from '../../utils/cn';
 
@@ -66,10 +67,15 @@ export function BlogLeftNavigation({ projects }: BlogLeftNavigationProps) {
       <div className="flex flex-col space-y-2">
         <button 
           onClick={() => setIsProjectsOpen(!isProjectsOpen)}
-          className="flex items-center justify-between text-sm font-semibold text-primary uppercase tracking-wider mb-2 w-full text-left"
+          className="flex items-center justify-between text-sm font-semibold text-primary uppercase tracking-wider mb-2 w-full text-left focus:outline-none group"
         >
           <span>Projects</span>
-          <span className="text-tertiary">{isProjectsOpen ? '−' : '+'}</span>
+          <ChevronDown 
+            className={cn(
+              "w-4 h-4 text-tertiary transition-transform duration-300 group-hover:text-primary",
+              isProjectsOpen ? "rotate-180" : "rotate-0"
+            )} 
+          />
         </button>
         {isProjectsOpen && (
           <div className="flex flex-col space-y-1 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
