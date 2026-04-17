@@ -9,7 +9,7 @@ interface IntelliChatMarkdownProps {
 
 export function IntelliChatMarkdown({ content, className }: IntelliChatMarkdownProps) {
     return (
-        <div className={cn("text-zinc-50 leading-relaxed font-light text-[14px]", className)}>
+        <div className={cn("text-inherit leading-relaxed font-light text-[14px]", className)}>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{

@@ -26,19 +26,19 @@ export function ChatInput({ value, onChange, onSubmit, disabled }: ChatInputProp
                 onChange={(e) => onChange(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={disabled}
-                placeholder={disabled ? "AI is thinking..." : "Pass your message to IntelliChat..."}
+                placeholder={disabled ? "AI is thinking..." : "Send a message to " + (import.meta.env.VITE_INTELLICHAT_BOT_NAME || "IntelliChat AI") + "..."}
                 className="w-full bg-background border border-border text-primary placeholder:text-tertiary rounded-full pl-5 pr-12 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-inner"
             />
             <button
                 onClick={onSubmit}
                 disabled={disabled || !value.trim()}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center disabled:opacity-50 transition-all hover:bg-cyan-600 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-cyan-500"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-zinc-900 dark:bg-cyan-500 rounded-full flex items-center justify-center disabled:opacity-50 transition-all hover:bg-zinc-800 dark:hover:bg-cyan-600 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyan-500 dark:focus:ring-offset-zinc-900 focus:ring-zinc-900 dark:focus:ring-cyan-500"
                 aria-label="Send Message"
             >
                 {disabled ? (
-                    <Loader2 className="w-4 h-4 text-zinc-950 animate-spin" />
+                    <Loader2 className="w-4 h-4 text-zinc-50 dark:text-zinc-950 animate-spin" />
                 ) : (
-                    <Send className="w-4 h-4 text-zinc-950 ml-0.5" />
+                    <Send className="w-4 h-4 text-zinc-50 dark:text-zinc-950 ml-0.5" />
                 )}
             </button>
         </div>

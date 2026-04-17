@@ -31,19 +31,16 @@ export function IntelliChatWidget() {
     if (isLoadingConfig || !isConfigured) return null;
 
     return (
-        <div className="fixed bottom-0 right-0 z-50 flex flex-col items-end pointer-events-none p-4 lg:p-6 pb-[90px] pr-[30px] lg:pb-[100px] lg:pr-[40px]">
-            {/* The Chat Window */}
+        <div className="fixed bottom-0 left-0 right-0 sm:left-auto z-40 flex flex-col items-end pointer-events-none sm:p-6 sm:pb-[24px] sm:pr-[30px] lg:pb-[24px] lg:pr-[40px]">
             <div
-                className={`transition-all duration-300 transform origin-bottom-right pointer-events-auto ${isOpen
-                        ? 'opacity-100 translate-y-0 scale-100'
-                        : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
+                className={`fixed sm:relative top-20 bottom-6 left-4 right-4 sm:top-auto sm:bottom-auto sm:left-auto sm:right-auto sm:w-auto transition-all duration-300 transform origin-bottom sm:origin-bottom-right pointer-events-auto flex flex-col justify-end ${isOpen
+                    ? 'opacity-100 translate-y-0 scale-100'
+                    : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
                     }`}
             >
-                {/* Passed onClose to allow header to close it */}
                 {isOpen && <IntelliChatWindow onClose={() => setIsOpen(false)} />}
             </div>
 
-            {/* The Floating Toggle (Now hides when window is open!) */}
             <div
                 className={`fixed bottom-6 right-6 pointer-events-auto transition-all duration-300 ${isOpen ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100'
                     }`}
