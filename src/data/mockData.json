@@ -32,7 +32,6 @@
       { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Architecture Code", "description": "Reviewing system architecture patterns and identifying pipeline bottlenecks during optimization sessions." },
       { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Architecture Code", "description": "Reviewing system architecture patterns and identifying pipeline bottlenecks during optimization sessions." },
       { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Architecture Code", "description": "Reviewing system architecture patterns and identifying pipeline bottlenecks during optimization sessions." },
-      { "type": "video", "assetUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "altText": "Server load tracing", "description": "Tracing heavy microservice bottlenecks over dynamic cluster networks under high concurrency payload runs." },
       { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop", "altText": "Late night programming", "description": "Late night iterative debugging loops ensuring code resilience and performance standards are met." }
     ],
     "moreAboutMe": [
@@ -119,9 +118,7 @@
       "Just saying hi!"
     ],
     "socials": [
-      { "platform": "GitHub", "url": "https://github.com", "username": "@yourgithub", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", "altText": "Github" } },
-      { "platform": "LinkedIn", "url": "https://linkedin.com", "username": "Your Name", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg", "altText": "LinkedIn" } },
-      { "platform": "X", "url": "https://twitter.com", "username": "@yourhandle", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/twitter/twitter-original.svg", "altText": "Twitter" } }
+      { "platform": "GitHub", "url": "https://github.com", "username": "@yourgithub", "iconUrl": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", "altText": "Github" } }
     ]
   },
   "blogPreview": {
@@ -140,269 +137,78 @@
     },
     "description": "Welcome to my project deep dives. Here I document the architecture decisions, challenges, and code structures behind my implementations.",
     "carousel": [
-      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Code editor snippet" },
-      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop", "altText": "Circuit board pattern" }
+      { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "Code editor snippet" }
     ]
   },
-  "projectBlogs": {
-    "intellichat-core": {
-      "id": "intellichat-core",
-      "projectBlogs": [
+  "projectBlogs": [
+    {
+      "id": "day-12",
+      "projectId": "intellichat-core",
+      "title": "Optimizing Vector Search Latency",
+      "datetime": "2026-04-05T10:00:00Z",
+      "description": "Switched from a standard HNSW index to a quantized vector search, reducing retrieval latency by 35%.```python # Quantization logic here def quantize(vectors): pass ```",
+      "commitLink": "https://github.com/yourusername/intellichat/commit/abc1234",
+      "assets": [
+        { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", "altText": "Dashboard metrics interface" }
+      ]
+    },
+    {
+      "id": "day-10",
+      "projectId": "intellichat-core",
+      "title": "Implementing Multimodal RAG",
+      "datetime": "2026-04-02T14:30:00Z",
+      "description": "Integrated visual grounding capability. The model can now analyze images alongside text",
+      "commitLink": "https://github.com/yourusername/intellichat/commit/def5678",
+      "assets": [
+        { "type": "video", "assetUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "altText": "Multimodal testing" }
+      ]
+    }
+  ],
+  "projectDeepDives": [
+    {
+      "id": "dd-1",
+      "projectId": "intellichat-core",
+      "title": "Architecture Overview",
+      "assets": [
         {
-          "id": "day-12",
-          "title": "Optimizing Vector Search Latency",
-          "datetime": "2026-04-05T10:00:00Z",
-          "description": "Switched from a standard HNSW index to a quantized vector search, reducing retrieval latency by 35%.\n\n```python\n# Quantization logic here\ndef quantize(vectors):\n    pass\n```",
-          "commitLink": "https://github.com/yourusername/intellichat/commit/abc1234",
-          "assets": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", "altText": "Dashboard metrics interface" }
-          ]
-        },
-        {
-          "id": "day-10",
-          "title": "Implementing Multimodal RAG",
-          "datetime": "2026-04-02T14:30:00Z",
-          "description": "Integrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategyIntegrated visual grounding capability. The model can now analyze images alongside text, improving query accuracy for documents with charts.\n\nKey takeaways:\n- CLIP embeddings are robust.\n- Storing image embeddings requires a new index strategy.",
-          "commitLink": "https://github.com/yourusername/intellichat/commit/def5678",
-          "assets": [
-            { "type": "video", "assetUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "altText": "Multimodal testing" }
-          ]
-        },
-        {
-          "id": "day-8",
-          "title": "Fixing the Context Window Issue",
-          "datetime": "2026-03-29T09:15:00Z",
-          "description": "Noticed that overflowing the context window caused hallucination. Implemented a dynamic token truncation algorithm that preserves the most relevant chunks.",
-          "assets": []
-        },
-        {
-          "id": "day-5",
-          "title": "Authentication Integration",
-          "datetime": "2026-03-25T11:45:00Z",
-          "description": "Adding JWT-based authentication to secure the API. Used FastAPI's `OAuth2PasswordBearer` for quick implementation.",
-          "commitLink": "https://github.com/yourusername/intellichat/commit/xyz9876",
-          "assets": []
-        },
-        {
-          "id": "day-2",
-          "title": "Initial Database Setup",
-          "datetime": "2026-03-22T08:00:00Z",
-          "description": "Set up PostgreSQL and configured `pgvector`. Wrote the initial Alembic migration scripts.",
-          "assets": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop", "altText": "Database Schema" }
-          ]
+          "type": "image",
+          "description": "",
+          "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop",
+          "altText": "Code editor snippet"
         }
       ],
-      "deepDives": [
+      "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
+      "repoLink": "https://github.com/yourusername/intellichat",
+      "liveSiteLink": "https://intellichat-demo.com",
+      "liveAPIDocumentation": "https://intellichat-756513026425.asia-southeast1.run.app/docs"
+    }
+  ],
+  "projectTechnologies": [
+    {
+      "id": "tech-1",
+      "projectId": "intellichat-core",
+      "title": "Database Architecture",
+      "description": "Storing massive unstructured documents alongside embeddings requires an ACID-compliant engine.",
+      "techStacks": [
         {
-          "title": "Architecture Overview",
+          "type": "tool",
+          "description": "PostgreSQL was utilized alongside the `pgvector` extension. We selected PostgreSQL 16 because of its native SIMD optimizations for vector similarity matching.",
           "assets": [
-            {
-              "type": "image",
-              "description": "",
-              "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop",
-              "altText": "Code editor snippet"
-            }
-          ],
-          "description": "This project required custom vector chunking to handle large PDF ingestions without memory overflow...",
-          "repoLink": "https://github.com/yourusername/intellichat",
-          "liveSiteLink": "https://intellichat-demo.com",
-          "liveAPIDocumentation": "https://intellichat-756513026425.asia-southeast1.run.app/docs"
-        },
-        {
-          "title": "Multimodal Vector Search Pipeline",
-          "assets": [
-            {
-              "type": "video",
-              "description": "YouTube Embed Explanation",
-              "assetUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-              "altText": "YouTube Video"
-            }
-          ],
-          "description": "Integrating a **multimodal** search using CLIP embeddings. The process involved vectorizing the images and aligning them with the text embeddings.\n\n```python\n# Multimodal Embedding\ndef embed_multimodal(image_path, text):\n    image_emb = clip_model.embed_image(image_path)\n    text_emb = clip_model.embed_text(text)\n    return concatenate(image_emb, text_emb)\n```\n\nIt improved the visual search capabilities by 40% based on our benchmark suite.",
-          "repoLink": "https://github.com/yourusername/intellichat"
-        }
-      ],
-      "technologies": [
-        {
-          "title": "Database Architecture",
-          "description": "Storing massive unstructured documents alongside embeddings requires an ACID-compliant engine.",
-          "techStacks": [
-            {
-              "type": "tool",
-              "description": "PostgreSQL was utilized alongside the `pgvector` extension. We selected PostgreSQL 16 because of its native SIMD optimizations for vector similarity matching.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", "altText": "PostgreSQL" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Backend Services",
-          "description": "Performance and rapid iteration was necessary because RAG logic evolves constantly with prompt adjustments.",
-          "techStacks": [
-            {
-              "type": "language",
-              "description": "Python's rich AI ecosystem made it the obvious choice for handling tokenization pipelines.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", "altText": "Python" }
-              ]
-            },
-            {
-              "type": "tool",
-              "description": "FastAPI provides synchronous and asynchronous interface mixing, which we strictly needed because embedding relies on remote APIs.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg", "altText": "FastAPI" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Frontend App",
-          "description": "The administrative dashboard needed highly interactive visualizations for document node graphs.",
-          "techStacks": [
-            {
-              "type": "language",
-              "description": "Used modern TypeScript for static checks and cleaner refactors.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", "altText": "TypeScript" }
-              ]
-            },
-            {
-              "type": "others",
-              "description": "React powered by Vite ensures ultra-fast HMR in development.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", "altText": "React" },
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", "altText": "TailwindCSS" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "AI & Orchestration",
-          "description": "Connecting standard application flows with nondeterministic LLMs required a deterministic intermediary.",
-          "techStacks": [
-            {
-              "type": "ai-agent",
-              "description": "LangChain's graph primitives allowed us to build custom memory schemas across chat sessions.",
-              "assets": []
-            }
-          ]
-        },
-        {
-          "title": "Message Brokering",
-          "description": "Document parsing is an extensive background process.",
-          "techStacks": [
-            {
-              "type": "tool",
-              "description": "Redis handles our Celery task queues reliably, while additionally caching repetitive queries to save OpenAI token limits.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg", "altText": "Redis" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Containerization",
-          "description": "Docker streamlines deployment from staging to production reliably.",
-          "techStacks": [
-            {
-              "type": "deployment",
-              "description": "Multi-stage Dockerfiles optimized image sizes effectively down to just over 150MB, stripping all unneeded GCC compile dependencies.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", "altText": "Docker" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Core Compute Cloud",
-          "description": "Cloud hosting requires resilience for horizontal scaling of worker nodes.",
-          "techStacks": [
-            {
-              "type": "deployment",
-              "description": "AWS ECS combined with Fargate allows us to allocate hardware on the fly precisely as queuing backlogs expand.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", "altText": "AWS" }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Edge Middleware",
-          "description": "Serving static bundles seamlessly closer to consumers.",
-          "techStacks": [
-            {
-              "type": "deployment",
-              "description": "Vercel acts as our Edge CDN for Next.js, handling ISR securely to ensure load isn't placed constantly on the Postgres instance.",
-              "assets": [
-                { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg", "altText": "Vercel" }
-              ]
-            }
-          ]
-        }
-      ],
-      "images": [
-        {
-          "title": "Architecture Overview Vectors",
-          "description": "High-level visual schematics demonstrating how vector similarity bridges the gap between text embeddings and metadata querying over pgvector.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop", "altText": "Vector flow schematic" },
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600&auto=format&fit=crop", "altText": "Code block parsing schematic" }
-          ]
-        },
-        {
-          "title": "Administrative Dashboard",
-          "description": "The custom metrics panel allows monitoring total API cost per prompt and the latency between the node edges.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", "altText": "Dashboard dark mode panel" },
-            { "type": "video", "assetUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "altText": "Dashboard demonstration (will be stripped)" }
-          ]
-        },
-        {
-          "title": "RAG Chain Pipeline Tests",
-          "description": "Visualizing the node execution traces ensures deterministic flow patterns.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", "altText": "LangChain Trace Logs" }
-          ]
-        },
-        {
-          "title": "Container Orchestration Setup",
-          "description": "Our custom CI/CD pipelines deploying multiple Docker instances safely using ECS.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=600&auto=format&fit=crop", "altText": "Docker ECS Pipeline" }
-          ]
-        },
-        {
-          "title": "Entity Association Layers",
-          "description": "We tested standard relation mappings against GraphQL setups for metadata.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop", "altText": "Entity mapping architecture" }
-          ]
-        },
-        {
-          "title": "Early Prototype Work",
-          "description": "Initial design proofs utilizing simple NextJS scaffolds.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop", "altText": "Prototype code editor" }
-          ]
-        },
-        {
-          "title": "Performance Benchmarking",
-          "description": "Charting 1 million vector search queries across concurrent worker threads mapping p99 tail latencies.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop", "altText": "Latency Graph" }
-          ]
-        },
-        {
-          "title": "Final Production State",
-          "description": "The completed frontend implementation functioning effectively on the Edge.",
-          "contents": [
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", "altText": "Production Dashboard Final" },
-            { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=600&auto=format&fit=crop", "altText": "User Settings view" }
+            { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", "altText": "PostgreSQL" }
           ]
         }
       ]
     }
-  }
+  ],
+  "projectImages": [
+    {
+      "id": "img-comp-1",
+      "projectId": "intellichat-core",
+      "title": "Architecture Overview Vectors",
+      "description": "High-level visual schematics demonstrating how vector similarity bridges the gap between text embeddings and metadata querying over pgvector.",
+      "contents": [
+        { "type": "image", "assetUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=600&auto=format&fit=crop", "altText": "Vector flow schematic" }
+      ]
+    }
+  ]
 }

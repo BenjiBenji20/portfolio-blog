@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useSanityData } from '../hooks/useSanityData';
+import { useProjectDetails } from '../hooks/useData';
 import { NavigationHeader } from '../components/layout/NavigationHeader';
 import { Footer } from '../components/layout/Footer';
 import { GlobalLoader } from '../components/layout/GlobalLoader';
@@ -10,13 +11,14 @@ import { ProjectBlogTabSection } from '../components/sections/blog/ProjectBlogTa
 import { ProjectDeepDiveTabSection } from '../components/sections/blog/ProjectDeepDiveTabSection';
 import { ProjectTechnologyTabSection } from '../components/sections/blog/ProjectTechnologyTabSection';
 import { ProjectImagesTabSection } from '../components/sections/blog/ProjectImagesTabSection';
-import { ChevronDown } from 'lucide-react'; // Changed import here
+import { ChevronDown } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 export function ProjectBlog() {
   const { projectId } = useParams<{ projectId: string }>();
   const location = useLocation();
-  const { data, isLoading, error } = useSanityData({ type: 'global' });
+  const { data: globalData, isLoading: isGlobalLoading, error: globalError } = useSanityData({ type: 'global' });
+  const { data: activeProject, isLoading: isProjectLoading, error: projectError } = useProjectDetails(projectId || '');
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   useEffect(() => {
@@ -25,8 +27,9 @@ export function ProjectBlog() {
   }, [location.pathname]);
 
   const isPreview = location.pathname === '/blogs/preview' || location.pathname === '/blogs';
-
-  const activeProject = !isPreview && projectId && data?.projectBlogs ? data.projectBlogs[projectId] : null;
+  const data = globalData;
+  const isLoading = isGlobalLoading || (!isPreview && isProjectLoading);
+  const error = globalError || projectError;
 
   const getCurrentTabName = () => {
     if (isPreview) return "Preview";
@@ -59,7 +62,7 @@ export function ProjectBlog() {
       return <PreviewTabSection data={data.blogPreview} />;
     }
 
-    if (!activeProject) {
+    if (!activeProject || (!activeProject.summary && activeProject.blogs?.length === 0)) {
       return (
         <div className="flex h-[50vh] items-center justify-center border border-dashed border-border rounded-lg p-8 bg-card">
           <p className="text-secondary text-lg text-center">
@@ -71,23 +74,21 @@ export function ProjectBlog() {
 
     const path = location.pathname;
     if (path.endsWith('/deepdive')) {
-      const activeSummary = data?.projectSummaries?.find(p => p.id === projectId);
       return (
         <div className="w-full">
           <ProjectDeepDiveTabSection 
             entries={activeProject.deepDives || []} 
-            projectTitle={activeSummary?.title || 'Project'} 
+            projectTitle={activeProject.summary?.title || 'Project'} 
           />
         </div>
       );
     }
     if (path.endsWith('/technology')) {
-       const activeSummary = data?.projectSummaries?.find(p => p.id === projectId);
        return (
          <div className="w-full">
            <ProjectTechnologyTabSection 
              entries={activeProject.technologies || []} 
-             projectTitle={activeSummary?.title || 'Project'} 
+             projectTitle={activeProject.summary?.title || 'Project'} 
            />
          </div>
        );
@@ -100,7 +101,7 @@ export function ProjectBlog() {
        );
     }
 
-    return <ProjectBlogTabSection entries={activeProject.projectBlogs} />;
+    return <ProjectBlogTabSection entries={activeProject.blogs || []} />;
   };
 
   if (error) {

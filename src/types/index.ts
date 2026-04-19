@@ -1,6 +1,7 @@
 // Shared Types
 export interface SanityAsset {
   type: 'image' | 'video'; // video link can be youtube or vimeo
+  videoType?: 'sanity' | 'youtube' | 'vimeo'; // identify where the video is from
   description?: string; // display during lightbox
   assetUrl: string;
   altText: string;
@@ -80,6 +81,7 @@ export interface BlogPreview {
 // isolate through project id
 export interface ProjectBlogEntry {
   id: string;
+  projectId: string; // Used to isolate per project
   title: string; // ### Title
   datetime: string; // ISO String
   description: string; // Markdown
@@ -95,6 +97,8 @@ export interface TechStacks {
 }
 
 export interface ProjectTechnology {
+  id: string;
+  projectId: string;
   title?: string; // any title 
   description?: string; // project level stacks description
   techStacks: TechStacks[]; // module level list of stacks put in card
@@ -102,6 +106,8 @@ export interface ProjectTechnology {
 
 // isolate through project id
 export interface ProjectDeepDive {
+  id: string;
+  projectId: string;
   title: string; // since its a list, title should be provided to identify each deep dive item
   liveAPIDocumentation?: string; // embed api documentation (such as openapi/swagger) in iframe
   assets?: SanityAsset[];
@@ -112,18 +118,11 @@ export interface ProjectDeepDive {
 
 // isolate through project id. Serves as UI gallery for the project
 export interface ProjectImages {
+  id: string;
+  projectId: string;
   title: string; // entry/card level title
   description?: string; // entry/card level description
   contents: SanityAsset[];
-}
-
-// isolate through project id
-export interface ProjectBlog {
-  id: string;
-  projectBlogs: ProjectBlogEntry[];
-  deepDives: ProjectDeepDive[];
-  technologies: ProjectTechnology[];
-  images: ProjectImages[];
 }
 
 // Root Mock Data Interface
@@ -135,5 +134,10 @@ export interface PortfolioMockData {
   projectSummaries: ProjectSummary[];
   contact: ContactSection;
   blogPreview: BlogPreview;
-  projectBlogs: Record<string, ProjectBlog>; // Keyed by project ID for easy lookup
+  
+  // Flat Arrays for GROQ alignment
+  projectBlogs: ProjectBlogEntry[];
+  projectDeepDives: ProjectDeepDive[];
+  projectTechnologies: ProjectTechnology[];
+  projectImages: ProjectImages[];
 }
