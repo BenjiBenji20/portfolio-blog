@@ -1,40 +1,39 @@
-import { useState, useEffect, useMemo } from 'react';
-import type { ProjectBlogEntry } from '../../../types';
+import { useState, useEffect } from 'react';
 import { Gallery } from '../../common/Gallery';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 import { FaGithub } from 'react-icons/fa';
 import { ReadMoreMarkdown } from '../../common/ReadMoreMarkdown';
+import { useProjectBlogs } from '../../../hooks/useData';
 
 interface ProjectBlogTabSectionProps {
-  entries: ProjectBlogEntry[];
+  projectId: string;
 }
 
 const ITEMS_PER_PAGE = 3;
 
-export function ProjectBlogTabSection({ entries }: ProjectBlogTabSectionProps) {
-  const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
+export function ProjectBlogTabSection({ projectId }: ProjectBlogTabSectionProps) {
+  const [offset, setOffset] = useState(0);
+  const { data: entries, isLoading, isFetchingMore, hasMore } = useProjectBlogs(projectId, offset, ITEMS_PER_PAGE);
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
 
-  // Reset display count when entries change (e.g. project switch)
+  // Reset offset when project changes
   useEffect(() => {
-    setDisplayCount(ITEMS_PER_PAGE);
-  }, [entries]);
+    setOffset(0);
+  }, [projectId]);
 
   useEffect(() => {
-    if (isIntersecting && displayCount < entries.length) {
-      // Simulate network latency for lazy loading
-      const timer = setTimeout(() => {
-        setDisplayCount(prev => Math.min(prev + ITEMS_PER_PAGE, entries.length));
-      }, 300);
-      return () => clearTimeout(timer);
+    if (isIntersecting && hasMore && !isFetchingMore) {
+      setOffset(prev => prev + ITEMS_PER_PAGE);
     }
-  }, [isIntersecting, displayCount, entries.length]);
+  }, [isIntersecting, hasMore, isFetchingMore]);
 
-  const displayedEntries = useMemo(() => {
-    return [...entries]
-      .sort((a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime())
-      .slice(0, displayCount);
-  }, [entries, displayCount]);
+  if (isLoading && offset === 0) {
+    return (
+      <div className="w-full flex h-64 items-center justify-center border border-dashed border-border bg-card rounded-lg">
+        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!entries || entries.length === 0) {
     return (
@@ -46,7 +45,7 @@ export function ProjectBlogTabSection({ entries }: ProjectBlogTabSectionProps) {
 
   return (
     <div className="w-full flex flex-col space-y-8">
-      {displayedEntries.map((entry) => (
+      {entries.map((entry) => (
         <article key={entry.id} className="flex flex-col space-y-4 border border-border rounded-xl p-5 sm:p-7 bg-card shadow-sm hover:shadow-md transition-shadow">
           <header className="flex flex-col space-y-2">
             <h2 className="text-xl md:text-2xl font-bold text-primary tracking-tight">
@@ -88,7 +87,7 @@ export function ProjectBlogTabSection({ entries }: ProjectBlogTabSectionProps) {
       ))}
 
       {/* Lazy loading anchor */}
-      {displayCount < entries.length && (
+      {hasMore && (
         <div ref={targetRef} className="w-full py-8 flex justify-center">
           <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />
         </div>

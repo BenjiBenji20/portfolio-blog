@@ -1,18 +1,47 @@
 import { useState, useEffect } from 'react';
-import type { PortfolioMockData } from '../types';
-import mockDataJson from '../data/mockData.json';
+import { client } from '../lib/sanityClient';
+import mockData from '../data/mockData.json';
 
 type FetchParams = {
-  type: 'global' | 'projects';
-  limit?: number;
-  cursor?: string | null;
+  type: 'global'; // We only support global here now, projects has its own hook
 };
 
-export function useSanityData<T = PortfolioMockData>(params: FetchParams = { type: 'global' }) {
+// This GROQ query fetches all singleton documents and uses projections to securely map Sanity's internal image formats to your universal `assetUrl` string, maintaining 100% type compatibility.
+const globalQuery = `{
+  "brand": *[_type == "brand"][0]{
+    ...,
+    image{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+  },
+  "hero": *[_type == "home"][0]{
+    ...,
+    selfPortrait{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) },
+    links[]{ ..., iconUrl{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
+  },
+  "about": *[_type == "about"][0]{
+    ...,
+    images[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+  },
+  "techStacks": *[_type == "techStack"],
+  "contact": *[_type == "contact"][0]{
+    ...,
+    socials[]{ ..., iconUrl{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
+  },
+  "blogPreview": *[_type == "blogPreview"][0]{
+    ...,
+    profilePhoto{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) },
+    carousel[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) },
+    profileDetails->{
+      ...,
+      selfPortrait{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) },
+      links[]{ ..., iconUrl{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
+    }
+  }
+}`;
+
+export function useSanityData<T = any>(params: FetchParams = { type: 'global' }) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [nextCursor, setNextCursor] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -20,29 +49,24 @@ export function useSanityData<T = PortfolioMockData>(params: FetchParams = { typ
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        // Simulate Sanity network delay logic for LCP constraints
-        await new Promise(resolve => setTimeout(resolve, 800));
-
-        if (!isMounted) return;
 
         if (params.type === 'global') {
-          setData(mockDataJson as unknown as T);
-        } else if (params.type === 'projects') {
-          const allProjects = mockDataJson.projectSummaries;
-          const startIndex = params.cursor 
-            ? allProjects.findIndex((p: any) => p.id === params.cursor) + 1 
-            : 0;
-            
-          const limit = params.limit || 2;
-          const paginatedProjects = allProjects.slice(startIndex, startIndex + limit);
-          
-          const hasMore = startIndex + limit < allProjects.length;
-          setNextCursor(hasMore ? paginatedProjects[paginatedProjects.length - 1].id : null);
-          
-          setData({ projectSummaries: paginatedProjects } as unknown as T);
+          const result = await client.fetch(globalQuery);
+          if (isMounted) {
+            // Fallback logic
+            const mergedData = {
+              brand: result.brand ?? mockData.brand,
+              hero: result.hero ?? mockData.hero,
+              about: result.about ?? mockData.about,
+              techStacks: result.techStacks?.length > 0 ? result.techStacks : mockData.techStacks,
+              contact: result.contact ?? mockData.contact,
+              blogPreview: result.blogPreview ?? mockData.blogPreview,
+            };
+            setData(mergedData as T);
+          }
         }
 
-        setIsLoading(false);
+        if (isMounted) setIsLoading(false);
       } catch (err) {
         if (isMounted) {
           setError(err instanceof Error ? err : new Error('Sanity Fetch Error'));
@@ -54,7 +78,7 @@ export function useSanityData<T = PortfolioMockData>(params: FetchParams = { typ
     fetchData();
 
     return () => { isMounted = false; };
-  }, [params.type, params.limit, params.cursor]);
+  }, [params.type]);
 
-  return { data, isLoading, error, nextCursor };
+  return { data, isLoading, error };
 }

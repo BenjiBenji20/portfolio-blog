@@ -62,7 +62,7 @@ export function ProjectBlog() {
       return <PreviewTabSection data={data.blogPreview} />;
     }
 
-    if (!activeProject || (!activeProject.summary && activeProject.blogs?.length === 0)) {
+    if (!activeProject || !activeProject.summary) {
       return (
         <div className="flex h-[50vh] items-center justify-center border border-dashed border-border rounded-lg p-8 bg-card">
           <p className="text-secondary text-lg text-center">
@@ -77,8 +77,8 @@ export function ProjectBlog() {
       return (
         <div className="w-full">
           <ProjectDeepDiveTabSection 
-            entries={activeProject.deepDives || []} 
-            projectTitle={activeProject.summary?.title || 'Project'} 
+            projectId={activeProject.summary.id} 
+            projectTitle={activeProject.summary.title} 
           />
         </div>
       );
@@ -88,7 +88,7 @@ export function ProjectBlog() {
          <div className="w-full">
            <ProjectTechnologyTabSection 
              entries={activeProject.technologies || []} 
-             projectTitle={activeProject.summary?.title || 'Project'} 
+             projectTitle={activeProject.summary.title} 
            />
          </div>
        );
@@ -101,7 +101,7 @@ export function ProjectBlog() {
        );
     }
 
-    return <ProjectBlogTabSection entries={activeProject.blogs || []} />;
+    return <ProjectBlogTabSection projectId={activeProject.summary.id} />;
   };
 
   if (error) {
