@@ -46,7 +46,7 @@ export function PreviewTabSection({ data }: PreviewTabSectionProps) {
           
           {/* Social Links */}
           <div className="flex items-center space-x-4 pt-2">
-            {profileDetails.links.map((link, idx) => (
+            {profileDetails.links?.map((link, idx) => (
               <SocialIcon key={idx} link={link} />
             ))}
           </div>

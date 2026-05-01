@@ -153,7 +153,7 @@ export function useMoreAboutMe(offset: number = 0, limit: number = 4) {
       try {
         // Fetch only the sliced portion of the moreAboutMe array inside the singleton about document
         const query = `*[_type == "about"][0].moreAboutMe[$start...$end] {
-          ..., image{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+          ..., images[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
         }`;
 
         const result = await client.fetch(query, {

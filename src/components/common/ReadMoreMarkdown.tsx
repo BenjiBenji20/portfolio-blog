@@ -49,8 +49,9 @@ export function ReadMoreMarkdown({ content, maxHeight = 160, className }: ReadMo
       
       {needsTruncation && (
         <button
+          type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors focus:outline-none"
+          className="mt-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors focus:outline-none relative z-50 cursor-pointer pointer-events-auto"
         >
           {isExpanded ? 'Show less' : 'Read more'}
         </button>

@@ -51,22 +51,22 @@
     ]
   },
   "techStacks": [
-    { "name": "Python", "category": "Language", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
-    { "name": "TypeScript", "category": "Language", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
-    { "name": "JavaScript", "category": "Language", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
-    { "name": "PostgreSQL", "category": "Tool", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
-    { "name": "MongoDB", "category": "Tool", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
-    { "name": "FastAPI", "category": "Tool", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
-    { "name": "React", "category": "Others", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
-    { "name": "Next.js", "category": "Others", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
-    { "name": "Node.js", "category": "Language", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" },
-    { "name": "Docker", "category": "Deployment", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
-    { "name": "AWS", "category": "Deployment", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-    { "name": "Vercel", "category": "Deployment", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" },
+    { "name": "Python", "category": "Language", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", "altText": "Python" } },
+    { "name": "TypeScript", "category": "Language", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", "altText": "TypeScript" } },
+    { "name": "JavaScript", "category": "Language", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg", "altText": "JavaScript" } },
+    { "name": "PostgreSQL", "category": "Tool", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", "altText": "PostgreSQL" } },
+    { "name": "MongoDB", "category": "Tool", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg", "altText": "MongoDB" } },
+    { "name": "FastAPI", "category": "Tool", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg", "altText": "FastAPI" } },
+    { "name": "React", "category": "Others", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", "altText": "React" } },
+    { "name": "Next.js", "category": "Others", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", "altText": "Next.js" } },
+    { "name": "Node.js", "category": "Language", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg", "altText": "Node.js" } },
+    { "name": "Docker", "category": "Deployment", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", "altText": "Docker" } },
+    { "name": "AWS", "category": "Deployment", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", "altText": "AWS" } },
+    { "name": "Vercel", "category": "Deployment", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg", "altText": "Vercel" } },
     { "name": "LangChain", "category": "AIAgent" },
     { "name": "LlamaIndex", "category": "AIAgent" },
-    { "name": "Redis", "category": "Tool", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" },
-    { "name": "Tailwind CSS", "category": "Others", "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" }
+    { "name": "Redis", "category": "Tool", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg", "altText": "Redis" } },
+    { "name": "Tailwind CSS", "category": "Others", "icon": { "type": "image", "assetUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", "altText": "Tailwind CSS" } }
   ],
   "projectSummaries": [
     {

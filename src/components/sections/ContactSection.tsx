@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import type { ContactSection as ContactSectionType } from '../../types';
+import { useState, useRef } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import type { ContactSection as ContactSectionType, PortfolioBrandIcon } from '../../types';
 import { Input } from '../common/Input';
 import { Textarea } from '../common/Textarea';
 import { toast } from 'sonner';
 import { Send, FileCheck, Loader2, Mail } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import emailjs from '@emailjs/browser';
 import { SocialIcon } from '../common/SocialIcon';
-
-export function ContactSection({ contact }: { contact: ContactSectionType }) {
+export function ContactSection({ contact, brand }: { contact: ContactSectionType, brand?: PortfolioBrandIcon }) {
   const [status, setStatus] = useState<'IDLE' | 'SUBMITTING' | 'SUCCESS' | 'ERROR'>('IDLE');
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
   
   const [subject, setSubject] = useState(contact.formOptions?.[0] || 'Hello');
   const [name, setName] = useState('');
@@ -22,19 +25,52 @@ export function ContactSection({ contact }: { contact: ContactSectionType }) {
     e.preventDefault();
     if (!isValid) return;
 
+    let recaptchaToken = '';
+    if (siteKey && recaptchaRef.current) {
+      recaptchaToken = recaptchaRef.current.getValue() || '';
+      if (!recaptchaToken) {
+        toast.error('Verification required.', {
+          description: 'Please verify you are human before sending.'
+        });
+        return;
+      }
+    }
+
     setStatus('SUBMITTING');
     
-    // Simulate API pipeline delay organically pushing to LCP mock frames
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
-    toast.success('System message dispatched!', {
-      description: 'I will get back to you securely as soon as possible.',
-    });
-    
-    setStatus('SUCCESS');
-    // Error mock would be:
-    // toast.error('Transmission failed.')
-    // setStatus('ERROR')
+    try {
+      const templateParams = {
+        name: name || 'Anonymous',
+        email: email,
+        phone: phone || 'Not provided',
+        subject: subject,
+        content: content,
+        site_name: brand?.portfolioBrandName || 'My Portfolio',
+        brand_logo_url: brand?.image?.assetUrl || '',
+        'g-recaptcha-response': recaptchaToken,
+      };
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_placeholder',
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      
+      toast.success('System message dispatched!', {
+        description: 'I will get back to you securely as soon as possible.',
+      });
+      
+      setStatus('SUCCESS');
+      recaptchaRef.current?.reset();
+    } catch (error) {
+      console.error('EmailJS transmission error:', error);
+      toast.error('Transmission failed.', {
+        description: 'Failed to securely relay the message. Please try again.'
+      });
+      setStatus('ERROR');
+      recaptchaRef.current?.reset();
+    }
   };
 
   return (
@@ -184,6 +220,16 @@ export function ContactSection({ contact }: { contact: ContactSectionType }) {
                   />
                 </div>
               </div>
+
+              {siteKey && (
+                <div className="pt-2">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={siteKey}
+                    theme="dark"
+                  />
+                </div>
+              )}
 
               <div className="pt-4 flex w-full justify-end">
                 <button

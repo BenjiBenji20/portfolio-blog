@@ -64,25 +64,8 @@ export function AboutSection({ about }: { about: AboutSectionType }) {
         
         {isLoading && offset === 0 && <div className="text-secondary animate-pulse py-8">Loading more about me...</div>}
 
-        {/* Center Toggle Button */}
-        {showButton && !isLoading && !error && (
-          <div className="w-full flex justify-center py-4">
-            <button 
-              onClick={handleToggle}
-              disabled={isFetchingMore}
-              className="flex items-center gap-2 px-6 py-3 rounded-full border border-accent bg-transparent text-accent hover:bg-accent hover:text-white font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 group disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-expanded={isMoreAboutMeOpen}
-            >
-              <span>{isFetchingMore ? 'Loading...' : buttonLabel}</span>
-              {!isFetchingMore && (
-                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${(!isMoreAboutMeOpen || hasMore) ? 'group-hover:translate-y-0.5' : 'rotate-180'}`} />
-              )}
-            </button>
-          </div>
-        )}
-
         {/* Expanded Content with Smooth Grid Transition */}
-        <div className={`w-full grid transition-all duration-500 ease-in-out ${isMoreAboutMeOpen && moreAboutMeEntries.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 mt-0 invisible'}`}>
+        <div className={`w-full grid transition-all duration-500 ease-in-out ${isMoreAboutMeOpen && moreAboutMeEntries.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
           <div className="overflow-hidden flex flex-col space-y-16">
             {moreAboutMeEntries.map((section, idx) => (
               <div key={idx} className="w-full flex flex-col lg:flex-row items-start gap-12 lg:gap-16 pt-8 mt-4">
@@ -113,6 +96,24 @@ export function AboutSection({ about }: { about: AboutSectionType }) {
             ))}
           </div>
         </div>
+
+        {/* Center Toggle Button */}
+        {showButton && !isLoading && !error && (
+          <div className="w-full flex justify-center py-4 relative z-20">
+            <button 
+              type="button"
+              onClick={handleToggle}
+              disabled={isFetchingMore}
+              className="flex items-center gap-2 px-6 py-3 rounded-full border border-accent bg-transparent text-accent hover:bg-accent hover:text-white font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 group disabled:opacity-50 disabled:cursor-not-allowed relative z-50 cursor-pointer pointer-events-auto touch-manipulation"
+              aria-expanded={isMoreAboutMeOpen}
+            >
+              <span>{isFetchingMore ? 'Loading...' : buttonLabel}</span>
+              {!isFetchingMore && (
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${(!isMoreAboutMeOpen || hasMore) ? 'group-hover:translate-y-0.5' : 'rotate-180'}`} />
+              )}
+            </button>
+          </div>
+        )}
 
       </div>
     </section>

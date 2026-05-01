@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <title>New Portfolio Contact</title>
+    <!-- Fallback font -->
+    <!--[if mso]>
+    <style type="text/css">
+        body, table, td, h1, h2, h3, p {font-family: Arial, sans-serif !important;}
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+    </style>
+    <![endif]-->
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        /* Base Resets */
+        body, table, td, a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* Light Mode Defaults (Paper & Ink) */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* pure white */
+            color: #09090b;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            width: 100% !important;
+        }
+
+        .wrapper {
+            width: 100%;
+            table-layout: fixed;
+            background-color: #ffffff;
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .main-content {
+            background-color: transparent;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+            border-spacing: 0;
+            border: none;
+        }
+
+        .inner-padding {
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            padding-bottom: 32px;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            margin: 0 0 12px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #09090b;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            margin: 0;
+            font-size: 15px;
+            color: #52525b;
+            line-height: 1.5;
+        }
+
+        .accent-text {
+            color: #0891b2;
+        }
+
+        /* Content Fields */
+        .field-group {
+            margin-bottom: 32px;
+        }
+
+        .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #71717a;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .value {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #09090b;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .message-box {
+            background-color: #f4f4f5; /* very subtle background instead of border */
+            border-radius: 4px;
+            padding: 24px;
+            margin-top: 12px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #09090b;
+            white-space: pre-wrap;
+            border: none;
+        }
+
+        .footer {
+            font-size: 13px;
+            color: #71717a;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid #f4f4f5; /* Only a subtle separator here */
+        }
+
+        a {
+            color: #0891b2;
+            text-decoration: none;
+        }
+
+        /* Dark Mode (Midnight Zinc & Cyber Teal) */
+        @media (prefers-color-scheme: dark) {
+            body, .wrapper, .main-content {
+                background-color: #09090b !important;
+                color: #fafafa !important;
+            }
+            h1, .value {
+                color: #fafafa !important;
+            }
+            .subtitle {
+                color: #a1a1aa !important;
+            }
+            .label, .footer {
+                color: #71717a !important;
+            }
+            .message-box {
+                background-color: #18181b !important;
+                color: #fafafa !important;
+            }
+            .accent-text, a {
+                color: #06b6d4 !important;
+            }
+            .footer {
+                border-top-color: #18181b !important;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media screen and (max-width: 600px) {
+            .wrapper {
+                padding-top: 32px;
+                padding-bottom: 32px;
+            }
+            .main-content {
+                width: 100% !important;
+            }
+            .inner-padding {
+                padding: 0 20px !important;
+            }
+            .col {
+                width: 100% !important;
+                display: block !important;
+                margin-bottom: 24px;
+            }
+            .col:last-child {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <center class="wrapper">
+        <table class="main-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+            <tr>
+                <td class="inner-padding">
+                    <!-- Header -->
+                    <div class="header">
+                        <img src="{{brand_logo_url}}" alt="Portfolio Brand" height="36" style="display: block; margin-bottom: 24px; border-radius: 4px; max-width: 100%;">
+                        <h1>Contact Form <span class="accent-text">Submission</span></h1>
+                        <p class="subtitle">New message from {{site_name}}</p>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="field-group">
+                        <div class="label">Inquiry Type</div>
+                        <p class="value">{{subject}}</p>
+                    </div>
+
+                    <!-- Sender Info (Two columns on desktop) -->
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom: 24px;">
+                        <tr>
+                            <th class="col" width="50%" align="left" valign="top" style="font-weight: normal;">
+                                <div class="field-group" style="margin-bottom: 0;">
+                                    <div class="label">From</div>
+                                    <p class="value">{{name}}</p>
+                                </div>
+                            </th>
+                            <th class="col" width="50%" align="left" valign="top" style="font-weight: normal;">
+                                <div class="field-group" style="margin-bottom: 0;">
+                                    <div class="label">Reply to Email</div>
+                                    <p class="value"><a href="mailto:{{email}}">{{email}}</a></p>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+
+                    <!-- Phone -->
+                    <div class="field-group">
+                        <div class="label">Contact / Viber Number</div>
+                        <p class="value">{{phone}}</p>
+                    </div>
+
+                    <!-- Message Body -->
+                    <div class="field-group" style="margin-bottom: 0;">
+                        <div class="label">Message Content</div>
+                        <div class="message-box">{{content}}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Footer -->
+        <table class="main-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+            <tr>
+                <td class="inner-padding" style="padding-top: 0; padding-bottom: 0;">
+                    <div class="footer">
+                        <p style="margin: 0;">Sent via {{site_name}}.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

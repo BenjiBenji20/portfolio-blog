@@ -79,7 +79,7 @@ export function BlogLeftNavigation({ projects }: BlogLeftNavigationProps) {
         </button>
         {isProjectsOpen && (
           <div className="flex flex-col space-y-1 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
-            {projects.map((project) => (
+            {projects?.map((project) => (
               <NavLink
                 key={project.id}
                 to={`/blogs/${project.id}`}

@@ -60,7 +60,7 @@ export function Home() {
             <TechStackSection items={data.techStacks} />
             <AboutSection about={data.about} />
             <ProjectsSection />
-            <ContactSection contact={data.contact} />
+            <ContactSection contact={data.contact} brand={data.brand} />
           </>
         ) : null}
       </main>

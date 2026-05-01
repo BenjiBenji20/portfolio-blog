@@ -21,7 +21,10 @@ const globalQuery = `{
     ...,
     images[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
   },
-  "techStacks": *[_type == "techStack"],
+  "techStacks": *[_type == "techStack"]{
+    ...,
+    icon{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+  },
   "contact": *[_type == "contact"][0]{
     ...,
     socials[]{ ..., iconUrl{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
