@@ -45,8 +45,8 @@ export function ProjectBlogTabSection({ projectId }: ProjectBlogTabSectionProps)
 
   return (
     <div className="w-full flex flex-col space-y-8">
-      {entries.map((entry) => (
-        <article key={entry.id} className="flex flex-col space-y-4 border border-border rounded-xl p-5 sm:p-7 bg-card shadow-sm hover:shadow-md transition-shadow">
+      {entries.map((entry, idx) => (
+        <article key={entry.id || idx} className="flex flex-col space-y-4 border border-border rounded-xl p-5 sm:p-7 bg-card shadow-sm hover:shadow-md transition-shadow">
           <header className="flex flex-col space-y-2">
             <h2 className="text-xl md:text-2xl font-bold text-primary tracking-tight">
               {entry.title}

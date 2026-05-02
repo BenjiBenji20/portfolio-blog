@@ -51,7 +51,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
               className="hover:text-accent transition-colors p-2 -m-2 flex items-center justify-center translate-y-0 hover:-translate-y-1 transform duration-200"
               aria-label={link.platform}
             >
-              <SocialIcon link={link} />
+              <SocialIcon link={link} className="w-6 h-6 sm:w-7 sm:h-7" />
             </a>
           ))}
         </div>
