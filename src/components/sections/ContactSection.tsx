@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import type { ContactSection as ContactSectionType, PortfolioBrandIcon } from '../../types';
 import { Input } from '../common/Input';
@@ -10,6 +10,36 @@ import emailjs from '@emailjs/browser';
 import { SocialIcon } from '../common/SocialIcon';
 export function ContactSection({ contact, brand }: { contact: ContactSectionType, brand?: PortfolioBrandIcon }) {
   const [status, setStatus] = useState<'IDLE' | 'SUBMITTING' | 'SUCCESS' | 'ERROR'>('IDLE');
+  const [cooldown, setCooldown] = useState(0);
+  const [honey, setHoney] = useState('');
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (cooldown > 0) {
+      timer = setTimeout(() => setCooldown(c => c - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [cooldown]);
+
+  const sanitizeInput = (input: string) => {
+    return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+
+  const checkRateLimit = () => {
+    const history = JSON.parse(localStorage.getItem('emailjs_history') || '[]');
+    const now = Date.now();
+    const recent = history.filter((timestamp: number) => now - timestamp < 24 * 60 * 60 * 1000);
+    return recent.length < 3;
+  };
+
+  const addRateLimit = () => {
+    const history = JSON.parse(localStorage.getItem('emailjs_history') || '[]');
+    const now = Date.now();
+    const recent = history.filter((timestamp: number) => now - timestamp < 24 * 60 * 60 * 1000);
+    recent.push(now);
+    localStorage.setItem('emailjs_history', JSON.stringify(recent));
+  };
+
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
   
@@ -23,7 +53,19 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValid) return;
+    if (!isValid || cooldown > 0) return;
+
+    if (honey) {
+      setStatus('SUCCESS');
+      return;
+    }
+
+    if (!checkRateLimit()) {
+      toast.error('Limit exceeded', {
+        description: `You can only send up to 3 messages per 24 hours. Please directly email me at ${contact.email}`
+      });
+      return;
+    }
 
     let recaptchaToken = '';
     if (siteKey && recaptchaRef.current) {
@@ -40,11 +82,11 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
     
     try {
       const templateParams = {
-        name: name || 'Anonymous',
+        name: sanitizeInput(name || 'Anonymous'),
         email: email,
-        phone: phone || 'Not provided',
-        subject: subject,
-        content: content,
+        phone: sanitizeInput(phone || 'Not provided'),
+        subject: sanitizeInput(subject),
+        content: sanitizeInput(content),
         site_name: brand?.portfolioBrandName || 'My Portfolio',
         brand_logo_url: brand?.image?.assetUrl || '',
         'g-recaptcha-response': recaptchaToken,
@@ -56,6 +98,9 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
         templateParams,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
+      
+      addRateLimit();
+      setCooldown(60);
       
       toast.success('System message dispatched!', {
         description: 'I will get back to you securely as soon as possible.',
@@ -175,6 +220,17 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
                 </div>
               )}
 
+              {/* Honeypot Field */}
+              <input 
+                type="text" 
+                name="_honey" 
+                style={{ display: 'none' }} 
+                tabIndex={-1} 
+                autoComplete="off" 
+                value={honey}
+                onChange={e => setHoney(e.target.value)}
+              />
+
               <div className="space-y-6 pt-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-secondary">Hello, I am <span className="text-xs text-secondary/50 font-normal ml-1">(Optional)</span></label>
@@ -234,10 +290,10 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
               <div className="pt-4 flex w-full justify-end">
                 <button
                   type="submit"
-                  disabled={!isValid || status === 'SUBMITTING'}
+                  disabled={!isValid || status === 'SUBMITTING' || cooldown > 0}
                   className={cn(
                     "flex items-center gap-2 px-8 py-3 rounded-lg font-medium transition-all duration-300 w-full sm:w-auto justify-center focus:outline-none focus:ring-2 focus:ring-accent/50",
-                    (!isValid || status === 'SUBMITTING') 
+                    (!isValid || status === 'SUBMITTING' || cooldown > 0) 
                       ? "bg-card border border-border/30 text-secondary cursor-not-allowed shadow-none" 
                       : "bg-primary text-background hover:bg-primary/90 shadow-lg hover:shadow-accent/20"
                   )}
@@ -247,6 +303,8 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
                       <Loader2 className="w-5 h-5 animate-spin" />
                       <span>Transmitting...</span>
                     </>
+                  ) : cooldown > 0 ? (
+                    <span>Wait {cooldown}s</span>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
