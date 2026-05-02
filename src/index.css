@@ -43,3 +43,11 @@ html {
     @apply bg-background text-primary font-sans antialiased transition-colors duration-300;
   }
 }
+
+/* Fix for Vercel Toolbar/Comments shadow host blocking touch events on mobile viewports */
+#preact-border-shadow-host {
+  pointer-events: none !important;
+}
+#preact-border-shadow-host > * {
+  pointer-events: auto !important;
+}

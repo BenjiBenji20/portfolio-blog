@@ -99,12 +99,12 @@ export function AboutSection({ about }: { about: AboutSectionType }) {
 
         {/* Center Toggle Button */}
         {showButton && !isLoading && !error && (
-          <div className="w-full flex justify-center py-4 relative z-20">
+          <div className="w-full flex justify-center py-4 relative z-10">
             <button 
               type="button"
               onClick={handleToggle}
               disabled={isFetchingMore}
-              className="flex items-center gap-2 px-6 py-3 rounded-full border border-accent bg-transparent text-accent hover:bg-accent hover:text-white font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 group disabled:opacity-50 disabled:cursor-not-allowed relative z-50 cursor-pointer pointer-events-auto touch-manipulation"
+              className="flex items-center gap-2 px-6 py-3 rounded-full border border-accent bg-transparent text-accent hover:bg-accent hover:text-white font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 group disabled:opacity-50 disabled:cursor-not-allowed relative z-10"
               aria-expanded={isMoreAboutMeOpen}
             >
               <span>{isFetchingMore ? 'Loading...' : buttonLabel}</span>

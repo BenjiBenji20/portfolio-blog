@@ -46,12 +46,12 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       {/* Top Banner Control */}
       <button
-        className="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white p-2 transition-colors focus:outline-none rounded-full bg-black/50 md:bg-white/10 z-50 hover:bg-white/20"
+        className="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white p-2 transition-colors focus:outline-none rounded-full bg-black/50 md:bg-white/10 z-[110] hover:bg-white/20"
         onClick={(e) => { e.stopPropagation(); onClose(); }}
         aria-label="Close lightbox"
       >
@@ -73,7 +73,7 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
             <>
               <button
                 onClick={handlePrevious}
-                className="absolute left-0 md:-left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 md:p-3 transition-colors focus:outline-none rounded-full hover:bg-white/10 z-50"
+                className="absolute left-0 md:-left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 md:p-3 transition-colors focus:outline-none rounded-full hover:bg-white/10 z-[110]"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 drop-shadow-lg" />
@@ -81,7 +81,7 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
 
               <button
                 onClick={handleNext}
-                className="absolute right-0 md:-right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 md:p-3 transition-colors focus:outline-none rounded-full hover:bg-white/10 z-50"
+                className="absolute right-0 md:-right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 md:p-3 transition-colors focus:outline-none rounded-full hover:bg-white/10 z-[110]"
                 aria-label="Next image"
               >
                 <ChevronRight className="w-8 h-8 md:w-10 md:h-10 drop-shadow-lg" />
@@ -144,7 +144,7 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
 
       {/* Bottom Thumbnail Strip */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 md:bottom-8 left-0 right-0 w-full flex justify-center z-50 px-4 pointer-events-auto">
+        <div className="absolute bottom-4 md:bottom-8 left-0 right-0 w-full flex justify-center z-[110] px-4 pointer-events-auto">
           <div 
             className="flex flex-row items-center gap-2 md:gap-3 overflow-x-auto max-w-full py-2 scrollbar-none"
             onClick={(e) => e.stopPropagation()}

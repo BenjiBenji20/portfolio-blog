@@ -21,7 +21,7 @@ export function ReadMoreText({
           <button 
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="ml-2 font-medium text-accent hover:text-primary transition-colors focus:outline-none relative z-50 cursor-pointer pointer-events-auto"
+            className="ml-2 font-medium text-accent hover:text-primary transition-colors focus:outline-none relative z-10"
           >
             {isExpanded ? 'Show less' : 'Read more'}
           </button>

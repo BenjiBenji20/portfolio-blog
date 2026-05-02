@@ -51,7 +51,7 @@ export function ReadMoreMarkdown({ content, maxHeight = 160, className }: ReadMo
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors focus:outline-none relative z-50 cursor-pointer pointer-events-auto"
+          className="mt-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors focus:outline-none relative z-10"
         >
           {isExpanded ? 'Show less' : 'Read more'}
         </button>

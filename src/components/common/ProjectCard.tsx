@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import type { ProjectSummary } from '../../types';
 import { Button } from './Button';
 import { Gallery } from './Gallery';
+import { ReadMoreText } from './ReadMoreText';
 
 interface ProjectCardProps {
   project: ProjectSummary;
@@ -31,7 +32,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
           <p className="text-lg md:text-xl text-secondary leading-relaxed font-light">
-            {project.shortDescription}
+            <ReadMoreText 
+              text={project.shortDescription}
+              maxLength={250}
+              className="text-lg md:text-xl text-secondary leading-relaxed font-light"
+            />
           </p>
         </div>
 

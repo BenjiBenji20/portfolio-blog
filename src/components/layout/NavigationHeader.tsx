@@ -73,7 +73,9 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-background px-6 py-6 flex flex-col gap-6 text-base font-medium shadow-lg z-50 border-t border-border/20">
+        <>
+          <div className="md:hidden fixed inset-0 top-16 z-[80] bg-background/80 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+          <div className="md:hidden absolute top-16 left-0 w-full bg-background px-6 py-6 flex flex-col gap-6 text-base font-medium shadow-lg z-[90] border-t border-border/20">
             {navLinks.map((link) => (
               <a
                 key={link.id}
@@ -89,7 +91,8 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
               </a>
             ))}
             <a href="/blogs" onClick={() => setIsOpen(false)} className="text-accent hover:text-white transition-colors font-semibold mt-2 border border-accent hover:bg-accent inline-block text-center rounded-full px-4 py-3">Blogs</a>
-        </div>
+          </div>
+        </>
       )}
     </header>
   );
