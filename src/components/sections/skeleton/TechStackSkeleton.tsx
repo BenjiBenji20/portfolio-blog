@@ -1,4 +1,4 @@
-import { Marquee } from "../common/Marquee";
+import { Marquee } from "../../common/Marquee";
 
 export function TechStackSkeleton() {
   return (
@@ -12,7 +12,7 @@ export function TechStackSkeleton() {
             </div>
           ))}
         </Marquee>
-        
+
         <Marquee reverse className="[--duration:50s] mt-2">
           {Array(8).fill(0).map((_, i) => (
             <div key={`sk2-${i}`} className="flex flex-col items-center justify-center gap-2 px-2 w-[110px] h-[110px] bg-transparent">

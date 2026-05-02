@@ -3,14 +3,14 @@ import type { ProjectSummary } from '../../types';
 import { ProjectCard } from '../common/ProjectCard';
 import { ChevronDown } from 'lucide-react';
 import { useProjectSummaries } from '../../hooks/useData';
-import { ProjectsSkeleton } from './ProjectsSkeleton';
+import { ProjectsSkeleton } from './skeleton/ProjectsSkeleton';
 
 export function ProjectsSection() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [offset, setOffset] = useState(0);
-  
+
   const { data: fetchedProjects, isLoading, isFetchingMore, hasMore, error } = useProjectSummaries(offset, 4);
-  
+
   if (isLoading && offset === 0) {
     return <ProjectsSkeleton />;
   }
@@ -52,7 +52,7 @@ export function ProjectsSection() {
         {/* Center Toggle Button */}
         {showButton && (
           <div className="w-full flex justify-center py-4 mt-4">
-            <button 
+            <button
               onClick={handleToggle}
               disabled={isFetchingMore}
               className="flex items-center gap-2 px-6 py-3 rounded-full border border-accent bg-transparent text-accent hover:bg-accent hover:text-white font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 group disabled:opacity-50 disabled:cursor-not-allowed"

@@ -21,15 +21,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <h3 className="text-2xl md:text-3xl font-bold text-primary tracking-tight break-words">
               {project.title}
             </h3>
-            {project.datetime && (
-              <p className="text-sm text-secondary/60 font-normal whitespace-nowrap">
-                {new Date(project.datetime).toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric'
-                })}
-              </p>
-            )}
           </div>
           <p className="text-lg md:text-xl text-secondary leading-relaxed font-light">
             <ReadMoreText 

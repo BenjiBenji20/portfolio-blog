@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import { useSanityData } from '../hooks/useSanityData';
 import { HeroSection } from '../components/sections/HeroSection';
-import { HeroSkeleton } from '../components/sections/HeroSkeleton';
+import { HeroSkeleton } from '../components/sections/skeleton/HeroSkeleton';
 import { NavigationHeader } from '../components/layout/NavigationHeader';
 import { Footer } from '../components/layout/Footer';
 import { TechStackSection } from '../components/sections/TechStackSection';
-import { TechStackSkeleton } from '../components/sections/TechStackSkeleton';
+import { TechStackSkeleton } from '../components/sections/skeleton/TechStackSkeleton';
 import { AboutSection } from '../components/sections/AboutSection';
-import { AboutSkeleton } from '../components/sections/AboutSkeleton';
+import { AboutSkeleton } from '../components/sections/skeleton/AboutSkeleton';
 import { ProjectsSection } from '../components/sections/ProjectsSection';
-import { ProjectsSkeleton } from '../components/sections/ProjectsSkeleton';
+import { ProjectsSkeleton } from '../components/sections/skeleton/ProjectsSkeleton';
 import { ContactSection } from '../components/sections/ContactSection';
-import { ContactSkeleton } from '../components/sections/ContactSkeleton';
+import { ContactSkeleton } from '../components/sections/skeleton/ContactSkeleton';
 import { GlobalLoader } from '../components/layout/GlobalLoader';
 
 export function Home() {
@@ -38,7 +38,7 @@ export function Home() {
     <div className="min-h-screen flex flex-col bg-background text-primary">
       <GlobalLoader isLoading={isLoading} />
       <NavigationHeader brand={data?.brand} />
-      
+
       <main className="flex-1 flex flex-col w-full">
         {isLoading ? (
           <div className="w-full flex flex-col">
