@@ -58,7 +58,7 @@ export function ProjectTechnologyTabSection({ entries, projectTitle }: ProjectTe
           </header>
 
           {techPhase.techStacks && techPhase.techStacks.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-start">
               {techPhase.techStacks.map((stack, sIdx) => (
                 <div key={sIdx} className="border border-border rounded-xl p-5 bg-card shadow-sm flex flex-col space-y-4 hover:shadow-md transition-shadow">
                   <h3 className="text-lg font-semibold text-primary capitalize tracking-wide">
