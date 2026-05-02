@@ -42,7 +42,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="flex flex-row flex-wrap justify-start items-center gap-3 sm:gap-4 w-full pt-2">
           <Button size="lg" className="group h-10 px-4 text-sm sm:h-12 sm:px-6 md:px-8 sm:text-base md:text-lg w-auto" asChild>
-            <Link to={`/blogs/project/${project.id}`} className="inline-flex items-center justify-center">
+            <Link to={`/blogs/${project.id}/deepdive`} className="inline-flex items-center justify-center">
               <span>Learn more</span>
               <ArrowRight className="ml-1.5 sm:ml-2 w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover:translate-x-1" />
             </Link>

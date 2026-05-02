@@ -28,7 +28,7 @@ export function useProjectSummaries(offset: number = 0, limit: number = 2) {
         const query = `*[_type == "project"] | order(datetime desc) [$start...$end] {
           ...,
           "id": slug.current,
-          image{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+          thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
         }`;
         
         // We fetch limit + 1 to easily determine if there is a next page
@@ -79,13 +79,13 @@ export function useProjectDetails(projectId: string) {
       try {
         const query = `{
           "summary": *[_type == "project" && slug.current == $id][0] {
-            ..., "id": slug.current, image{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+            ..., "id": slug.current, thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
           },
           "technologies": *[_type == "projectTechnology" && project->slug.current == $id] {
-            ..., "projectId": project->slug.current
+            ..., "projectId": project->slug.current, techStacks[]{ ..., assets[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
           },
           "images": *[_type == "projectImages" && project->slug.current == $id] {
-            ..., "projectId": project->slug.current, image{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+            ..., "projectId": project->slug.current, contents[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
           }
         }`;
 
@@ -211,7 +211,7 @@ export function useProjectBlogs(projectId: string, offset: number = 0, limit: nu
         const query = `*[_type == "projectBlogEntry" && project->slug.current == $id] | order(datetime desc) [$start...$end] {
           ...,
           "projectId": project->slug.current,
-          coverImage{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+          assets[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
         }`;
 
         const result = await client.fetch(query, {
@@ -267,8 +267,8 @@ export function useProjectDeepDives(projectId: string, offset: number = 0, limit
 
     const fetchData = async () => {
       try {
-        const query = `*[_type == "projectDeepDive" && project->slug.current == $id] | order(order asc) [$start...$end] {
-          ..., "projectId": project->slug.current, image{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+        const query = `*[_type == "projectDeepDive" && project->slug.current == $id] | order(_createdAt asc) [$start...$end] {
+          ..., "projectId": project->slug.current, assets[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
         }`;
 
         const result = await client.fetch(query, {

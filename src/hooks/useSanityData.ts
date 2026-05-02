@@ -38,6 +38,11 @@ const globalQuery = `{
       selfPortrait{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) },
       links[]{ ..., iconUrl{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
     }
+  },
+  "projectSummaries": *[_type == "project"] | order(datetime desc) {
+    ...,
+    "id": slug.current,
+    thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
   }
 }`;
 
@@ -64,6 +69,7 @@ export function useSanityData<T = any>(params: FetchParams = { type: 'global' })
               techStacks: result.techStacks?.length > 0 ? result.techStacks : mockData.techStacks,
               contact: result.contact ?? mockData.contact,
               blogPreview: result.blogPreview ?? mockData.blogPreview,
+              projectSummaries: result.projectSummaries?.length > 0 ? result.projectSummaries : mockData.projectSummaries,
             };
             setData(mergedData as T);
           }
