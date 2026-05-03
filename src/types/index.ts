@@ -58,6 +58,7 @@ export interface ProjectSummary {
   shortDescription: string;
   repositoryLink?: string;
   thumbnail?: SanityAsset;
+  priorityLevel?: number;
 }
 
 export interface ContactSection {

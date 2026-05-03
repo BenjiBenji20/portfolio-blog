@@ -39,7 +39,7 @@ const globalQuery = `{
       links[]{ ..., iconUrl{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
     }
   },
-  "projectSummaries": *[_type == "project"] | order(datetime desc) {
+  "projectSummaries": *[_type == "project"] | order(priorityLevel desc, datetime desc) {
     ...,
     "id": slug.current,
     thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }

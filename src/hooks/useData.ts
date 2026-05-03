@@ -25,7 +25,7 @@ export function useProjectSummaries(offset: number = 0, limit: number = 2) {
 
     const fetchData = async () => {
       try {
-        const query = `*[_type == "project"] | order(datetime desc) [$start...$end] {
+        const query = `*[_type == "project"] | order(priorityLevel desc, datetime desc) [$start...$end] {
           ...,
           "id": slug.current,
           thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
