@@ -26,7 +26,7 @@ export function AboutSection({ about }: { about: AboutSectionType }) {
   const showButton = moreAboutMeEntries.length > 0 || hasMore;
 
   return (
-    <section id="about" className="w-full min-h-screen bg-background py-24 flex items-center justify-center">
+    <section id="about" className="w-full min-h-screen bg-background pt-24 pb-0 flex items-center justify-center">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col items-center gap-12 lg:gap-16">
         
         {/* Main 2-Column Grid */}

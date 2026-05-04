@@ -37,7 +37,7 @@ export function ProjectsSection() {
   const showButton = moreProjects.length > 0 || hasMore; // Only show if we hold hidden elements or have more to fetch
 
   return (
-    <section id="projects" className="w-full bg-card/30 py-16 lg:py-20 flex flex-col items-center justify-center min-h-[50vh]">
+    <section id="projects" className="w-full bg-card/30 py-12 lg:py-16 flex flex-col items-center justify-center min-h-[50vh]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col gap-8 lg:gap-12">
         <div className="w-full flex flex-col text-left space-y-4">
           <h2 className="text-4xl md:text-6xl font-bold text-primary tracking-tight">Projects</h2>
@@ -47,6 +47,17 @@ export function ProjectsSection() {
           {initialProjects.map((project: ProjectSummary) => (
             <ProjectCard key={project.id} project={project} />
           ))}
+        </div>
+
+        {/* Collapsible Expanded List */}
+        <div className={`w-full grid transition-all duration-700 ease-in-out ${isExpanded && moreProjects.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 invisible'}`}>
+          <div className="overflow-hidden flex flex-col space-y-16 lg:space-y-20">
+            <div className="pt-4 flex flex-col space-y-16 lg:space-y-20">
+              {moreProjects.map((project: ProjectSummary) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Center Toggle Button */}
@@ -65,17 +76,6 @@ export function ProjectsSection() {
             </button>
           </div>
         )}
-
-        {/* Collapsible Expanded List */}
-        <div className={`w-full grid transition-all duration-700 ease-in-out ${isExpanded && moreProjects.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 invisible'}`}>
-          <div className="overflow-hidden flex flex-col space-y-16 lg:space-y-20">
-            <div className="pt-4 flex flex-col space-y-16 lg:space-y-20">
-              {moreProjects.map((project: ProjectSummary) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

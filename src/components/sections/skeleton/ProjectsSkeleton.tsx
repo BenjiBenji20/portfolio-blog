@@ -1,7 +1,7 @@
 export function ProjectsSkeleton() {
   return (
-    <section id="projects" className="w-full min-h-screen bg-card/30 py-24 flex items-center justify-center border-t border-border/10 animate-pulse">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col gap-12 lg:gap-16">
+    <section id="projects" className="w-full min-h-screen bg-card/30 py-12 lg:py-16 flex items-center justify-center border-t border-border/10 animate-pulse">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col gap-8 lg:gap-12">
         
         {/* Section Header */}
         <div className="w-full flex flex-col text-left space-y-4">

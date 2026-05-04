@@ -1,7 +1,7 @@
 export function ContactSkeleton() {
   return (
-    <section id="contact" className="w-full bg-background py-24 flex items-center justify-center border-t border-border/10 animate-pulse">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col md:flex-row gap-16 lg:gap-24">
+    <section id="contact" className="w-full bg-background pt-16 pb-24 flex items-center justify-center border-t border-border/10 animate-pulse">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col md:flex-row gap-12 lg:gap-16">
         
         {/* Left Column Skeleton */}
         <div className="w-full md:w-5/12 flex flex-col space-y-8">
