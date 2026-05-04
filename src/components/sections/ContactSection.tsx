@@ -102,7 +102,7 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
       addRateLimit();
       setCooldown(60);
       
-      toast.success('System message dispatched!', {
+      toast.success('Email sent!', {
         description: 'I will get back to you securely as soon as possible.',
       });
       
@@ -190,7 +190,7 @@ export function ContactSection({ contact, brand }: { contact: ContactSectionType
                 onClick={() => { setStatus('IDLE'); setContent(''); }}
                 className="px-6 py-2 rounded-lg bg-background shadow-sm border border-border/30 text-primary hover:border-accent/50 transition-all font-medium"
               >
-                Send another dispatch
+                Send another email
               </button>
             </div>
           ) : (
