@@ -121,4 +121,4 @@ By modifying the `siteSettings` document in Sanity (specifically changing the `s
 
 This project is open for collaboration, discussions, and optimizations. If you are interested in extending its features or identifying architectural improvements, feel free to reach out.
 
-- **Email**: [your.email@example.com](mailto:your.email@example.com)
+- **Email**: benjicanones6@gmail.com
