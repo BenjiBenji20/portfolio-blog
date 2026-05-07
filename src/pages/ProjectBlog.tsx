@@ -55,7 +55,7 @@ export function ProjectBlog() {
         document.title = `${data.brand.portfolioBrandName} | Blogs | ${getCurrentTabName()}`;
       }
     }
-  }, [data, location.pathname]); 
+  }, [data, location.pathname]);
 
   const renderMainContent = () => {
     if (isPreview && data?.blogPreview) {
@@ -76,29 +76,29 @@ export function ProjectBlog() {
     if (path.endsWith('/deepdive')) {
       return (
         <div className="w-full">
-          <ProjectDeepDiveTabSection 
-            projectId={activeProject.summary.id} 
-            projectTitle={activeProject.summary.title} 
+          <ProjectDeepDiveTabSection
+            projectId={activeProject.summary.id}
+            projectTitle={activeProject.summary.title}
           />
         </div>
       );
     }
     if (path.endsWith('/technology')) {
-       return (
-         <div className="w-full">
-           <ProjectTechnologyTabSection 
-             entries={activeProject.technologies || []} 
-             projectTitle={activeProject.summary.title} 
-           />
-         </div>
-       );
+      return (
+        <div className="w-full">
+          <ProjectTechnologyTabSection
+            projectId={activeProject.summary.id}
+            projectTitle={activeProject.summary.title}
+          />
+        </div>
+      );
     }
     if (path.endsWith('/images')) {
-       return (
-         <div className="w-full">
-           <ProjectImagesTabSection entries={activeProject.images || []} />
-         </div>
-       );
+      return (
+        <div className="w-full">
+          <ProjectImagesTabSection projectId={activeProject.summary.id} />
+        </div>
+      );
     }
 
     return <ProjectBlogTabSection projectId={activeProject.summary.id} />;
@@ -121,17 +121,17 @@ export function ProjectBlog() {
       {!isLoading && data && (
         <div className="md:hidden sticky top-16 z-40 w-full bg-background px-6 py-3 flex items-center shadow-sm">
           {/* Changed the button content and styling here */}
-          <button 
+          <button
             onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             className="flex flex-1 items-center justify-between p-2 text-primary bg-card hover:bg-card-hover rounded-md transition-colors focus:outline-none border border-border"
             aria-label="Toggle mobile blog navigation"
           >
             <span className="font-semibold text-primary">{getCurrentTabName()}</span>
-            <ChevronDown 
+            <ChevronDown
               className={cn(
                 "w-5 h-5 text-secondary transition-transform duration-300",
                 isMobileNavOpen ? "rotate-180" : "rotate-0"
-              )} 
+              )}
             />
           </button>
         </div>
@@ -146,8 +146,8 @@ export function ProjectBlog() {
           <div className="flex flex-col md:grid md:grid-cols-[1fr_4fr] gap-8 lg:gap-12">
             {/* 20% Left Navigation */}
             <div className={cn(
-               "w-full flex-shrink-0 md:sticky md:top-32 h-fit pb-12 md:pb-0",
-               isMobileNavOpen ? "block" : "hidden md:block"
+              "w-full flex-shrink-0 md:sticky md:top-32 h-fit pb-12 md:pb-0",
+              isMobileNavOpen ? "block" : "hidden md:block"
             )}>
               <BlogLeftNavigation projects={data.projectSummaries} />
             </div>

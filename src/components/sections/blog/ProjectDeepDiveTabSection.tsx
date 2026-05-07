@@ -22,11 +22,16 @@ export function ProjectDeepDiveTabSection({ projectId, projectTitle }: ProjectDe
     setOffset(0);
   }, [projectId]);
 
+  const currentEntryCount = entries?.length || 0;
+
   useEffect(() => {
-    if (isIntersecting && hasMore && !isFetchingMore) {
-      setOffset(prev => prev + ITEMS_PER_PAGE);
+    // STRICT CIRCUIT BREAKER: Mathematically lock the scroll trigger.
+    const hasLoadedCurrentBatch = currentEntryCount >= offset + ITEMS_PER_PAGE;
+
+    if (isIntersecting && hasMore && !isFetchingMore && hasLoadedCurrentBatch) {
+      setOffset(currentEntryCount);
     }
-  }, [isIntersecting, hasMore, isFetchingMore]);
+  }, [isIntersecting, hasMore, isFetchingMore, offset, currentEntryCount]);
 
   if (isLoading && offset === 0) {
     return (

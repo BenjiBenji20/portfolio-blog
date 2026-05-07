@@ -16,16 +16,23 @@ export function ProjectBlogTabSection({ projectId }: ProjectBlogTabSectionProps)
   const { data: entries, isLoading, isFetchingMore, hasMore } = useProjectBlogs(projectId, offset, ITEMS_PER_PAGE);
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
 
-  // Reset offset when project changes
   useEffect(() => {
     setOffset(0);
   }, [projectId]);
 
+  const currentEntryCount = entries?.length || 0;
+
   useEffect(() => {
-    if (isIntersecting && hasMore && !isFetchingMore) {
-      setOffset(prev => prev + ITEMS_PER_PAGE);
+    // STRICT CIRCUIT BREAKER: Mathematically lock the scroll trigger.
+    // The component physically cannot fetch the next page until the current array 
+    // has actually grown to the expected size. This prevents all mobile scroll bouncing bugs.
+    const hasLoadedCurrentBatch = currentEntryCount >= offset + ITEMS_PER_PAGE;
+
+    if (isIntersecting && hasMore && !isFetchingMore && hasLoadedCurrentBatch) {
+      // Dynamically sync the offset to exactly how many items we successfully rendered
+      setOffset(currentEntryCount);
     }
-  }, [isIntersecting, hasMore, isFetchingMore]);
+  }, [isIntersecting, hasMore, isFetchingMore, offset, currentEntryCount]);
 
   if (isLoading && offset === 0) {
     return (
@@ -86,7 +93,6 @@ export function ProjectBlogTabSection({ projectId }: ProjectBlogTabSectionProps)
         </article>
       ))}
 
-      {/* Lazy loading anchor */}
       {hasMore && (
         <div ref={targetRef} className="w-full py-8 flex justify-center">
           <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />

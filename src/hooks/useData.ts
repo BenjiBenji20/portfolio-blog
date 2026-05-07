@@ -15,7 +15,7 @@ export function useProjectSummaries(offset: number = 0, limit: number = 2) {
 
   useEffect(() => {
     let isMounted = true;
-    
+
     if (offset === 0) {
       setIsLoading(true);
       setData([]); // Reset on pure start
@@ -30,7 +30,7 @@ export function useProjectSummaries(offset: number = 0, limit: number = 2) {
           "id": slug.current,
           thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
         }`;
-        
+
         // We fetch limit + 1 to easily determine if there is a next page
         const result = await client.fetch(query, {
           start: offset,
@@ -38,10 +38,13 @@ export function useProjectSummaries(offset: number = 0, limit: number = 2) {
         });
 
         if (isMounted) {
-          const items = result?.length > 0 ? result : mockData.projectSummaries;
+          const allMockItems = mockData.projectSummaries;
+          const items = Array.isArray(result) && (result.length > 0 || offset > 0)
+            ? result
+            : allMockItems.slice(offset, offset + limit + 1);
           const hasNextPage = items.length > limit;
           const currentBatch = hasNextPage ? items.slice(0, limit) : items;
-          
+
           setData(prev => offset === 0 ? currentBatch : [...prev, ...currentBatch]);
           setHasMore(hasNextPage);
           setIsLoading(false);
@@ -67,8 +70,6 @@ export function useProjectSummaries(offset: number = 0, limit: number = 2) {
 export function useProjectDetails(projectId: string) {
   const [data, setData] = useState<{
     summary?: ProjectSummary;
-    technologies: ProjectTechnology[];
-    images: ProjectImages[];
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -80,12 +81,6 @@ export function useProjectDetails(projectId: string) {
         const query = `{
           "summary": *[_type == "project" && slug.current == $id][0] {
             ..., "id": slug.current, thumbnail{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
-          },
-          "technologies": *[_type == "projectTechnology" && project->slug.current == $id] {
-            ..., "projectId": project->slug.current, techStacks[]{ ..., assets[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
-          },
-          "images": *[_type == "projectImages" && project->slug.current == $id] {
-            ..., "projectId": project->slug.current, contents[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
           }
         }`;
 
@@ -94,23 +89,17 @@ export function useProjectDetails(projectId: string) {
         if (isMounted) {
           let mergedData = result;
           const mockProject = mockData.projectSummaries.find(p => p.id === projectId);
-          const mockTechs = mockData.projectTechnologies.filter(t => t.projectId === projectId);
-          const mockImgs = mockData.projectImages.filter(i => i.projectId === projectId);
-          
+
           if (!result?.summary && mockProject) {
             mergedData = {
-              summary: mockProject,
-              technologies: mockTechs,
-              images: mockImgs
+              summary: mockProject
             };
           } else if (result?.summary) {
             mergedData = {
-              summary: result.summary,
-              technologies: result.technologies?.length > 0 ? result.technologies : mockTechs,
-              images: result.images?.length > 0 ? result.images : mockImgs
+              summary: result.summary
             };
           }
-          
+
           setData(mergedData);
           setIsLoading(false);
         }
@@ -141,10 +130,10 @@ export function useMoreAboutMe(offset: number = 0, limit: number = 4) {
 
   useEffect(() => {
     let isMounted = true;
-    
+
     if (offset === 0) {
       setIsLoading(true);
-      setData([]); 
+      setData([]);
     } else {
       setIsFetchingMore(true);
     }
@@ -162,7 +151,10 @@ export function useMoreAboutMe(offset: number = 0, limit: number = 4) {
         });
 
         if (isMounted) {
-          const items = result?.length > 0 ? result : (mockData.about.moreAboutMe || []);
+          const allMockItems = mockData.about.moreAboutMe || [];
+          const items = Array.isArray(result) && (result.length > 0 || offset > 0)
+            ? result
+            : allMockItems.slice(offset, offset + limit + 1);
           const hasNextPage = items.length > limit;
           const currentBatch = hasNextPage ? items.slice(0, limit) : items;
 
@@ -198,10 +190,10 @@ export function useProjectBlogs(projectId: string, offset: number = 0, limit: nu
   useEffect(() => {
     let isMounted = true;
     if (!projectId) return;
-    
+
     if (offset === 0) {
       setIsLoading(true);
-      setData([]); 
+      setData([]);
     } else {
       setIsFetchingMore(true);
     }
@@ -221,7 +213,15 @@ export function useProjectBlogs(projectId: string, offset: number = 0, limit: nu
         });
 
         if (isMounted) {
-          const items = result?.length > 0 ? result : mockData.projectBlogs.filter(b => b.projectId === projectId);
+          // 1. Safe fallback to prevent undefined crashes
+          const mockSource = mockData.projectBlogs || [];
+          const allMockItems = mockSource.filter((b: any) => b.projectId === projectId);
+
+          // 2. Prevent "Hybrid" lists: If Sanity successfully returns an empty array on an offset > 0, respect it as the end of the list.
+          const items = Array.isArray(result) && (result.length > 0 || offset > 0)
+            ? result
+            : allMockItems.slice(offset, offset + limit + 1);
+
           const hasNextPage = items.length > limit;
           const currentBatch = hasNextPage ? items.slice(0, limit) : items;
 
@@ -235,6 +235,7 @@ export function useProjectBlogs(projectId: string, offset: number = 0, limit: nu
           setError(err instanceof Error ? err : new Error('Error fetching project blogs'));
           setIsLoading(false);
           setIsFetchingMore(false);
+          setHasMore(false); // 3. CRITICAL: Kill the infinite loop on error
         }
       }
     };
@@ -257,10 +258,10 @@ export function useProjectDeepDives(projectId: string, offset: number = 0, limit
   useEffect(() => {
     let isMounted = true;
     if (!projectId) return;
-    
+
     if (offset === 0) {
       setIsLoading(true);
-      setData([]); 
+      setData([]);
     } else {
       setIsFetchingMore(true);
     }
@@ -278,7 +279,10 @@ export function useProjectDeepDives(projectId: string, offset: number = 0, limit
         });
 
         if (isMounted) {
-          const items = result?.length > 0 ? result : mockData.projectDeepDives.filter(d => d.projectId === projectId);
+          const allMockItems = mockData.projectDeepDives.filter(d => d.projectId === projectId);
+          const items = Array.isArray(result) && (result.length > 0 || offset > 0)
+            ? result
+            : allMockItems.slice(offset, offset + limit + 1);
           const hasNextPage = items.length > limit;
           const currentBatch = hasNextPage ? items.slice(0, limit) : items;
 
@@ -292,6 +296,134 @@ export function useProjectDeepDives(projectId: string, offset: number = 0, limit
           setError(err instanceof Error ? err : new Error('Error fetching deep dives'));
           setIsLoading(false);
           setIsFetchingMore(false);
+        }
+      }
+    };
+
+    fetchData();
+    return () => { isMounted = false; };
+  }, [projectId, offset, limit]);
+
+  return { data, isLoading, isFetchingMore, hasMore, error };
+}
+
+// Progressive Offset Pagination Hook for Project Images
+export function useProjectImages(projectId: string, offset: number = 0, limit: number = 3) {
+  const [data, setData] = useState<ProjectImages[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (!projectId) return;
+
+    if (offset === 0) {
+      setIsLoading(true);
+      setData([]);
+    } else {
+      setIsFetchingMore(true);
+    }
+
+    const fetchData = async () => {
+      try {
+        const query = `*[_type == "projectImages" && project->slug.current == $id] | order(_createdAt asc) [$start...$end] {
+          ..., "projectId": project->slug.current, contents[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) }
+        }`;
+
+        const result = await client.fetch(query, {
+          id: projectId,
+          start: offset,
+          end: offset + limit + 1
+        });
+
+        if (isMounted) {
+          const mockSource = mockData.projectImages || [];
+          const allMockItems = mockSource.filter((i: any) => i.projectId === projectId);
+
+          const items = Array.isArray(result) && (result.length > 0 || offset > 0)
+            ? result
+            : allMockItems.slice(offset, offset + limit + 1);
+
+          const hasNextPage = items.length > limit;
+          const currentBatch = hasNextPage ? items.slice(0, limit) : items;
+
+          setData(prev => offset === 0 ? currentBatch : [...prev, ...currentBatch]);
+          setHasMore(hasNextPage);
+          setIsLoading(false);
+          setIsFetchingMore(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err instanceof Error ? err : new Error('Error fetching images'));
+          setIsLoading(false);
+          setIsFetchingMore(false);
+          setHasMore(false);
+        }
+      }
+    };
+
+    fetchData();
+    return () => { isMounted = false; };
+  }, [projectId, offset, limit]);
+
+  return { data, isLoading, isFetchingMore, hasMore, error };
+}
+
+// Progressive Offset Pagination Hook for Project Technologies
+export function useProjectTechnologies(projectId: string, offset: number = 0, limit: number = 3) {
+  const [data, setData] = useState<ProjectTechnology[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (!projectId) return;
+
+    if (offset === 0) {
+      setIsLoading(true);
+      setData([]);
+    } else {
+      setIsFetchingMore(true);
+    }
+
+    const fetchData = async () => {
+      try {
+        const query = `*[_type == "projectTechnology" && project->slug.current == $id] | order(_createdAt asc) [$start...$end] {
+          ..., "projectId": project->slug.current, techStacks[]{ ..., assets[]{ ..., "assetUrl": coalesce(assetUrl, imageFile.asset->url) } }
+        }`;
+
+        const result = await client.fetch(query, {
+          id: projectId,
+          start: offset,
+          end: offset + limit + 1
+        });
+
+        if (isMounted) {
+          const mockSource = mockData.projectTechnologies || [];
+          const allMockItems = mockSource.filter((t: any) => t.projectId === projectId);
+
+          const items = Array.isArray(result) && (result.length > 0 || offset > 0)
+            ? result
+            : allMockItems.slice(offset, offset + limit + 1);
+
+          const hasNextPage = items.length > limit;
+          const currentBatch = hasNextPage ? items.slice(0, limit) : items;
+
+          setData(prev => offset === 0 ? currentBatch : [...prev, ...currentBatch]);
+          setHasMore(hasNextPage);
+          setIsLoading(false);
+          setIsFetchingMore(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err instanceof Error ? err : new Error('Error fetching technologies'));
+          setIsLoading(false);
+          setIsFetchingMore(false);
+          setHasMore(false);
         }
       }
     };

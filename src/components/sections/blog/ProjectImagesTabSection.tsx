@@ -1,37 +1,42 @@
-import { useState, useEffect, useMemo } from 'react';
-import type { ProjectImages } from '../../../types';
+import { useState, useEffect } from 'react';
+import { useProjectImages } from '../../../hooks/useData';
 import { Gallery } from '../../common/Gallery';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 import { ReadMoreMarkdown } from '../../common/ReadMoreMarkdown';
 
 interface ProjectImagesTabSectionProps {
-  entries: ProjectImages[];
+  projectId: string;
 }
 
 const ITEMS_PER_PAGE = 3;
 
-export function ProjectImagesTabSection({ entries }: ProjectImagesTabSectionProps) {
-  const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
+export function ProjectImagesTabSection({ projectId }: ProjectImagesTabSectionProps) {
+  const [offset, setOffset] = useState(0);
+  const { data: entries, isLoading, isFetchingMore, hasMore } = useProjectImages(projectId, offset, ITEMS_PER_PAGE);
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
 
-  // Reset display count when entries change (e.g. project switch)
   useEffect(() => {
-    setDisplayCount(ITEMS_PER_PAGE);
-  }, [entries]);
+    setOffset(0);
+  }, [projectId]);
+
+  const currentEntryCount = entries?.length || 0;
 
   useEffect(() => {
-    if (isIntersecting && displayCount < entries.length) {
-      // Simulate network latency for lazy loading
-      const timer = setTimeout(() => {
-        setDisplayCount(prev => Math.min(prev + ITEMS_PER_PAGE, entries.length));
-      }, 300);
-      return () => clearTimeout(timer);
+    // STRICT CIRCUIT BREAKER
+    const hasLoadedCurrentBatch = currentEntryCount >= offset + ITEMS_PER_PAGE;
+
+    if (isIntersecting && hasMore && !isFetchingMore && hasLoadedCurrentBatch) {
+      setOffset(currentEntryCount);
     }
-  }, [isIntersecting, displayCount, entries.length]);
+  }, [isIntersecting, hasMore, isFetchingMore, offset, currentEntryCount]);
 
-  const displayedEntries = useMemo(() => {
-    return [...entries].slice(0, displayCount);
-  }, [entries, displayCount]);
+  if (isLoading && offset === 0) {
+    return (
+      <div className="w-full flex h-64 items-center justify-center border border-dashed border-border bg-card rounded-lg">
+        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!entries || entries.length === 0) {
     return (
@@ -43,11 +48,9 @@ export function ProjectImagesTabSection({ entries }: ProjectImagesTabSectionProp
 
   return (
     <div className="w-full flex flex-col space-y-8">
-      {displayedEntries.map((entry, idx) => {
-        // Filter out videos according to requirements
+      {entries.map((entry, idx) => {
         const validAssets = entry.contents?.filter(asset => asset.type !== 'video') || [];
 
-        // If no images exist after filtering, we can optionally skip or just render the text
         if (validAssets.length === 0 && !entry.description) {
            return null; 
         }
@@ -75,8 +78,7 @@ export function ProjectImagesTabSection({ entries }: ProjectImagesTabSectionProp
         )
       })}
 
-      {/* Lazy loading anchor */}
-      {displayCount < entries.length && (
+      {hasMore && (
         <div ref={targetRef} className="w-full py-8 flex justify-center">
           <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />
         </div>
