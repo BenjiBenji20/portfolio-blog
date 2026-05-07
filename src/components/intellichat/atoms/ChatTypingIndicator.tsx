@@ -6,11 +6,11 @@ interface ChatTypingIndicatorProps {
 export function ChatTypingIndicator({ status }: ChatTypingIndicatorProps) {
     return (
         <div className="flex items-start gap-3 min-w-0 mb-5">
-            <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-500 flex items-center justify-center shrink-0 mt-0.5">
+            <div className="w-8 h-8 rounded-full bg-transparent flex items-center justify-center shrink-0 mt-0.5">
                 <img
                     src="/chatbot.png"
                     alt="IntelliChat Bot"
-                    className="w-5 h-5 object-contain"
+                    className="w-full h-full rounded-full object-cover"
                 />
             </div>
             <div className="flex-1 space-y-2">

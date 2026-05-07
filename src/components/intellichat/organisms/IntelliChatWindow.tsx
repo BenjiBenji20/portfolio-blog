@@ -72,102 +72,124 @@ export function IntelliChatWindow({ onClose }: { onClose: () => void }) {
         setStreamingContent("");
         setErrorMsg(null);
 
-        try {
-            const response = await fetch("/api/intellichat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query: queryText, conversation_id: cid, stream: true })
-            });
+        let attempt = 0;
+        const maxRetries = 3;
+        let success = false;
+        let finalError: any = null;
 
-            if (!response.ok) {
-                let errText = "Failed to communicate with IntelliChat server.";
-                try {
-                    const errPayload = await response.json();
-                    if (errPayload.detail) {
-                        errText = typeof errPayload.detail === 'string' ? errPayload.detail : JSON.stringify(errPayload.detail);
-                    } else if (errPayload.error) {
-                        errText = errPayload.error;
-                    }
-                } catch { }
-                throw new Error(errText);
-            }
+        while (attempt < maxRetries && !success) {
+            try {
+                if (attempt > 0) {
+                    setServerStatus(`Chat attempt ${attempt + 1}/${maxRetries}...`);
+                }
+                
+                const response = await fetch("/api/intellichat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query: queryText, conversation_id: cid, stream: true })
+                });
 
-            const reader = response.body?.getReader();
-            if (!reader) throw new Error("Stream not supported.");
+                if (!response.ok) {
+                    let errText = "Failed to communicate with IntelliChat server.";
+                    try {
+                        const errPayload = await response.json();
+                        if (errPayload.detail) {
+                            errText = typeof errPayload.detail === 'string' ? errPayload.detail : JSON.stringify(errPayload.detail);
+                        } else if (errPayload.error) {
+                            errText = errPayload.error;
+                        }
+                    } catch { }
+                    throw new Error(errText);
+                }
 
-            const decoder = new TextDecoder();
-            let buffer = "";
-            let assembledChunk = "";
+                success = true;
 
-            while (true) {
-                const { value, done } = await reader.read();
-                if (done) break;
+                const reader = response.body?.getReader();
+                if (!reader) throw new Error("Stream not supported.");
 
-                buffer += decoder.decode(value, { stream: true });
-                let lines = buffer.split('\n');
-                buffer = lines.pop() || "";
+                const decoder = new TextDecoder();
+                let buffer = "";
+                let assembledChunk = "";
 
-                for (let line of lines) {
-                    if (line.startsWith('data: ')) {
-                        const dataStr = line.replace('data: ', '').trim();
-                        if (!dataStr) continue;
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
 
-                        if (dataStr.startsWith('[DONE] ')) {
-                            const jsonStr = dataStr.replace('[DONE] ', '');
-                            try {
-                                const finalData = JSON.parse(jsonStr);
-                                const finalContent = finalData.assistant?.content || assembledChunk;
+                    buffer += decoder.decode(value, { stream: true });
+                    let lines = buffer.split('\n');
+                    buffer = lines.pop() || "";
 
-                                const finalMsg: ChatMessageSchema = {
-                                    id: Date.now().toString() + "_assistant",
-                                    role: "assistant",
-                                    content: finalContent,
-                                    timestamp: Date.now()
-                                };
+                    for (let line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const dataStr = line.replace('data: ', '').trim();
+                            if (!dataStr) continue;
 
-                                setMessages(prev => {
-                                    const nextState = [...prev, finalMsg];
-                                    sessionStorage.setItem(SESSION_KEY, JSON.stringify(nextState));
-                                    return nextState;
-                                });
+                            if (dataStr.startsWith('[DONE] ')) {
+                                const jsonStr = dataStr.replace('[DONE] ', '');
+                                try {
+                                    const finalData = JSON.parse(jsonStr);
+                                    const finalContent = finalData.assistant?.content || assembledChunk;
 
-                            } catch (e) {
-                                console.error("Final Schema Parsing Error", e);
-                            }
-                        } else {
-                            try {
-                                const parsed = JSON.parse(dataStr);
-                                if (parsed.status) {
-                                    setServerStatus(parsed.status);
-                                } else if (parsed.chunk) {
-                                    assembledChunk += parsed.chunk;
-                                    setStreamingContent(assembledChunk);
-                                    setIsTyping(false);
+                                    const finalMsg: ChatMessageSchema = {
+                                        id: Date.now().toString() + "_assistant",
+                                        role: "assistant",
+                                        content: finalContent,
+                                        timestamp: Date.now()
+                                    };
+
+                                    setMessages(prev => {
+                                        const nextState = [...prev, finalMsg];
+                                        sessionStorage.setItem(SESSION_KEY, JSON.stringify(nextState));
+                                        return nextState;
+                                    });
+
+                                } catch (e) {
+                                    console.error("Final Schema Parsing Error", e);
                                 }
-                            } catch (e) {
-                                console.error("Chunk parsing error", e);
+                            } else {
+                                try {
+                                    const parsed = JSON.parse(dataStr);
+                                    if (parsed.status) {
+                                        setServerStatus(parsed.status);
+                                    } else if (parsed.chunk) {
+                                        assembledChunk += parsed.chunk;
+                                        setStreamingContent(assembledChunk);
+                                        setIsTyping(false);
+                                    }
+                                } catch (e) {
+                                    console.error("Chunk parsing error", e);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-        } catch (error: any) {
-            setErrorMsg(error.message || "Something went wrong.");
+            } catch (error: any) {
+                finalError = error;
+                attempt++;
+                if (attempt < maxRetries) {
+                    // Wait before retrying
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+            }
+        }
+
+        if (!success) {
+            setErrorMsg(finalError?.message || "Something went wrong.");
             setMessages(prev => {
                 const nextState = [...prev, {
                     id: Date.now().toString() + "_error",
                     role: "assistant" as const,
-                    content: `**Error**: ${error.message || "Failed to reach servers."}`,
+                    content: `**Error**: ${finalError?.message || "Failed to reach servers."}`,
                     timestamp: Date.now()
                 }];
                 return nextState;
             });
-        } finally {
-            setIsTyping(false);
-            setServerStatus(null);
-            setStreamingContent("");
         }
+        
+        setIsTyping(false);
+        setServerStatus(null);
+        setStreamingContent("");
     };
 
     return (
