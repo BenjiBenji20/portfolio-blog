@@ -1,13 +1,8 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import type { SanityAsset } from '../../types';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { cn } from '../../utils/cn';
-
-export const isYouTube = (url: string) => url.includes('youtube.com') || url.includes('youtu.be');
-export const getYouTubeId = (url: string) => {
-   const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-   return match ? match[1] : null;
-};
+import { AssetRenderer } from '../assets/AssetRenderer';
 
 interface LightBoxProps {
   images: SanityAsset[];
@@ -19,6 +14,21 @@ interface LightBoxProps {
 export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: LightBoxProps) {
   const activeAsset = images[selectedIndex];
 
+  // Touch handlers for swipe
+  const [touchStart, setTouchStart] = useState<{x: number, y: number} | null>(null);
+  const [touchEnd, setTouchEnd] = useState<{x: number, y: number} | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY });
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY });
+  };
+
   const handlePrevious = useCallback((e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     setSelectedIndex(selectedIndex === 0 ? images.length - 1 : selectedIndex - 1);
@@ -28,6 +38,24 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
     if (e) e.stopPropagation();
     setSelectedIndex(selectedIndex === images.length - 1 ? 0 : selectedIndex + 1);
   }, [selectedIndex, images.length, setSelectedIndex]);
+
+  const onTouchEndAction = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distanceX = touchStart.x - touchEnd.x;
+    const distanceY = touchStart.y - touchEnd.y;
+    
+    const isLeftSwipe = distanceX > minSwipeDistance;
+    const isRightSwipe = distanceX < -minSwipeDistance;
+    const isDownSwipe = distanceY < -minSwipeDistance; // y goes down as it increases (positive means swipe up, negative means swipe down)
+    
+    if (Math.abs(distanceX) > Math.abs(distanceY)) {
+      if (isLeftSwipe) handleNext();
+      if (isRightSwipe) handlePrevious();
+    } else {
+      if (isDownSwipe) onClose();
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -48,6 +76,9 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
     <div 
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEndAction}
     >
       {/* Top Banner Control */}
       <button
@@ -90,33 +121,8 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
           )}
 
           {/* Bound Internal Element */}
-          <div className="w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-            {activeAsset.type === 'video' ? (
-               isYouTube(activeAsset.assetUrl) ? (
-                 <iframe 
-                    src={`https://www.youtube.com/embed/${getYouTubeId(activeAsset.assetUrl)}?autoplay=1&rel=0`}
-                    className="w-full max-w-5xl h-[60vh] md:h-[75vh] object-contain shadow-2xl rounded-sm pointer-events-auto bg-black"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title={activeAsset.altText || 'YouTube Video'}
-                 />
-               ) : (
-                 <video 
-                    src={activeAsset.assetUrl}
-                    className="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm pointer-events-auto"
-                    controls
-                    autoPlay
-                    playsInline
-                 />
-               )
-            ) : (
-               <img
-                  src={activeAsset.assetUrl}
-                  alt={activeAsset.altText || 'Enlarged Lightbox view'}
-                  className="max-w-full max-h-[85vh] object-contain shadow-2xl pointer-events-auto select-none rounded-sm"
-               />
-            )}
+          <div className="w-full h-full flex items-center justify-center max-w-6xl pointer-events-none" onClick={(e) => e.stopPropagation()}>
+            <AssetRenderer asset={activeAsset} className="pointer-events-auto shadow-2xl rounded-sm w-full h-full" />
           </div>
         </div>
 
@@ -160,20 +166,7 @@ export function LightBox({ images, selectedIndex, onClose, setSelectedIndex }: L
                  )}
                  onClick={() => setSelectedIndex(idx)}
                >
-                 {asset.type === 'video' ? (
-                   isYouTube(asset.assetUrl) ? (
-                     <>
-                       <img src={`https://img.youtube.com/vi/${getYouTubeId(asset.assetUrl)}/default.jpg`} alt="YouTube thumbnail" className="w-full h-full object-cover pointer-events-none" />
-                       <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
-                         <div className="w-0 h-0 border-t-4 border-t-transparent border-l-[6px] border-l-white border-b-4 border-b-transparent ml-0.5" />
-                       </div>
-                     </>
-                   ) : (
-                     <video src={asset.assetUrl} className="w-full h-full object-cover pointer-events-none" />
-                   )
-                 ) : (
-                   <img src={asset.assetUrl} alt="Thumbnail view" className="w-full h-full object-cover pointer-events-none" />
-                 )}
+                 <AssetRenderer asset={asset} isThumbnail className="pointer-events-none" />
                </button>
             ))}
           </div>
