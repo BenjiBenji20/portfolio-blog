@@ -3,7 +3,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Menu, X } from "lucide-react";
 import type { PortfolioBrandIcon } from "../../types";
 import { useActiveSection } from "../../hooks/useActiveSection";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 interface NavigationHeaderProps {
   brand?: PortfolioBrandIcon;
@@ -29,7 +29,15 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
     <header className="sticky top-0 z-50 w-full bg-background">
       <div className="container mx-auto max-w-7xl px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        <div className="flex items-center gap-2 font-bold tracking-tight text-primary">
+        <Link 
+          to="/" 
+          onClick={() => {
+            if (location.pathname === '/') {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+          className="flex items-center gap-2 font-bold tracking-tight text-primary hover:opacity-80 transition-opacity"
+        >
           {brand?.image && (
             <img 
               src={brand.image.assetUrl} 
@@ -38,7 +46,7 @@ export function NavigationHeader({ brand }: NavigationHeaderProps) {
             />
           )}
           <span>{brand?.portfolioBrandName || 'Portfolio'}</span>
-        </div>
+        </Link>
         
         <nav className="flex items-center gap-4 md:gap-6">
           <div className="hidden md:flex items-center gap-6 text-sm font-medium">
