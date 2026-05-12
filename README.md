@@ -93,6 +93,37 @@ The backend schema must be deployed using the companion studio repository.
 npx sanity deploy
 ```
 
+### 5. EmailJS Template Setup
+For the contact form to securely send emails, you must configure your EmailJS service:
+1. Locate the predefined email template inside the project at `templates/template.html`.
+2. Copy the entire HTML contents of this file.
+3. In your [EmailJS dashboard](https://dashboard.emailjs.com/), navigate to your Email Template.
+4. Go to the "Edit Content" section (click the source code `< >` button) and paste the HTML directly.
+5. Save the template and ensure your Template ID matches the variable in your `.env.local`.
+
+### 6. Deployment & Security (vercel.json)
+
+This project uses a strict **Content Security Policy (CSP)** to protect users and ensure high performance. If you add new external services (e.g., a different chatbot, video host, or analytics provider), you **must** whitelist their domains in `vercel.json`.
+
+#### How to update the Proxy Guard:
+
+1. Open `vercel.json`.
+2. Locate the `Content-Security-Policy` header.
+3. Add your new domain to the appropriate directive:
+* **`connect-src`**: For APIs and data fetching.
+* **`frame-src`**: For iframes (like YouTube or Chat widgets).
+* **`img-src`**: For external image hosting.
+
+**Example: Adding a new Chatbot**
+If your chatbot is hosted at `[https://my-new-bot.com](https://my-new-bot.com)`, update the `frame-src` section:
+
+```json
+"frame-src 'self' https://www.google.com/recaptcha/ https://my-new-bot.com;"
+
+```
+
+> **Note:** If you prefer to disable the strict policy and allow all external resources (not recommended for production), you can set the `default-src` to `*`, but it is better to whitelist only what you need.
+
 ## CMS Schema Mapping
 
 The following table illustrates how the Sanity document types map to and power the frontend React components:
